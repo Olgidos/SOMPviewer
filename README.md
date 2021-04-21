@@ -2,7 +2,7 @@
 
 Developed for the TU Dresden Nanosat SOMP2b Norad ID: 47445
 
-![plot](./image1.jpg)
+![plot](./image1.png)
 
 Features:
  - Receive transmission data from the SatNOGS network (Rest API), decode and represent it
@@ -19,8 +19,8 @@ Features:
     - "Y angluar rate [deg/s]"
     - "Z angluar rate [deg/s]"
 
-![plot](./image2.jpg)
-![plot](./image3.jpg)
+![plot](./image2.png)
+![plot](./image3.png)
 
 Build:
 MSVC2019 64 bit
