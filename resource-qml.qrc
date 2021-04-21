@@ -1,0 +1,46 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/qml/D3_Main.qml</file>
+        <file>resource/qml/D3_Earth.qml</file>
+        <file>resource/qml/D3_Spacecraft.qml</file>
+        <file>resource/qml/CloudMaterial.qml</file>
+        <file>resource/qml/shaders/cloudShader.frag</file>
+        <file>resource/qml/shaders/cloudShader.vert</file>
+        <file>resource/qml/shaders/test.frag</file>
+        <file>resource/qml/shaders/test.vert</file>
+        <file>resource/qml/Satnogs_settings.qml</file>
+        <file>resource/qml/Satnogs_settingsForm.ui.qml</file>
+        <file>resource/qml/GUI_General.qml</file>
+        <file>resource/qml/GUI_MenuEntry.qml</file>
+        <file>resource/qml/GUI_Page_Settings.qml</file>
+        <file>resource/qml/GUI_Page_Home.qml</file>
+        <file>resource/qml/GUI_Page_Values.qml</file>
+        <file>resource/qml/Home.qml</file>
+        <file>resource/qml/HomeForm.ui.qml</file>
+        <file>resource/qml/GUI_Page_3D.qml</file>
+        <file>resource/qml/ValueSelection.qml</file>
+        <file>resource/qml/ValueSelection_item.qml</file>
+        <file>resource/qml/ValueChart.qml</file>
+        <file>resource/qml/ValueChart_item.qml</file>
+        <file>resource/qml/ValueNotes.qml</file>
+        <file>resource/qml/SatnogsNote.qml</file>
+        <file>resource/qml/Overlay_Observation.qml</file>
+        <file>resource/qml/Menu_controller.qml</file>
+        <file>resource/qml/D3_Clouds.qml</file>
+        <file>resource/qml/D3_CoordinationSystem.qml</file>
+        <file>resource/qml/D3_OrbitMarker.qml</file>
+        <file>resource/qml/MainWindow.qml</file>
+        <file>resource/qml/D3_Sun.qml</file>
+        <file>resource/qml/Overlay_Camera.qml</file>
+        <file>resource/qml/Overlay_Play.qml</file>
+        <file>resource/qml/D3_ShortCoordinationSystem.qml</file>
+        <file>resource/qml/D3_Plane.qml</file>
+        <file>resource/qml/Overlay_Axis.qml</file>
+        <file>resource/qml/GUI_Page_Overflight.qml</file>
+        <file>resource/qml/Overflight_settings.qml</file>
+        <file>resource/qml/Overflight_chart.qml</file>
+        <file>resource/qml/Overflight_passes.qml</file>
+        <file>resource/qml/Overflight_passes_item.qml</file>
+        <file>resource/qml/Overflight_note.qml</file>
+    </qresource>
+</RCC>

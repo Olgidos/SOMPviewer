@@ -1,0 +1,16 @@
+\begindata
+INPUT_DATA_TYPE   = 'TL_ELEMENTS'
+OUTPUT_SPK_TYPE   = 10
+TLE_INPUT_OBJ_ID  = 47445
+TLE_SPK_OBJ_ID    = -48
+CENTER_ID         = 399
+REF_FRAME_NAME    = 'J2000'
+START_TIME        = '2000 1 1 00:00:00'
+STOP_TIME         = '3000 1 1 00:00:00'
+LEAPSECONDS_FILE  = 'kernels\naif0012.tls'
+INPUT_DATA_FILE   = 'kernels\hst.tle'
+OUTPUT_SPK_FILE   = 'kernels\hst.bsp'
+PCK_FILE          = 'kernels\geophysical.ker'
+SEGMENT_ID        = 'HST TLE-based Trajectory'
+PRODUCER_ID       = 'Automatic'
+\begintext

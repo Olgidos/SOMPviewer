@@ -1,0 +1,14 @@
+KPL/MK
+\begindata
+ 
+KERNELS_TO_LOAD = ( 
+   'kernels/pck00010.tpc',
+   'kernels/de-403-masses.tpc',
+   'kernels/earth_200101_990628_predict.bpc',
+   'kernels/earth_fixed.tf',
+   'kernels/gm_de431.tpc',
+   'kernels/naif0012.tls',
+   'kernels/de430.bsp'         
+   )
+ 
+ \begintext

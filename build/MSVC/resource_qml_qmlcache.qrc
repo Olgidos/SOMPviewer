@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/">
+        <file alias="resource/qml/D3_Main.qml">../../resource/qml/D3_Main.qml</file>
+        <file alias="resource/qml/D3_Earth.qml">../../resource/qml/D3_Earth.qml</file>
+        <file alias="resource/qml/D3_Spacecraft.qml">../../resource/qml/D3_Spacecraft.qml</file>
+        <file alias="resource/qml/CloudMaterial.qml">../../resource/qml/CloudMaterial.qml</file>
+        <file alias="resource/qml/shaders/cloudShader.frag">../../resource/qml/shaders/cloudShader.frag</file>
+        <file alias="resource/qml/shaders/cloudShader.vert">../../resource/qml/shaders/cloudShader.vert</file>
+        <file alias="resource/qml/shaders/test.frag">../../resource/qml/shaders/test.frag</file>
+        <file alias="resource/qml/shaders/test.vert">../../resource/qml/shaders/test.vert</file>
+        <file alias="resource/qml/Satnogs_settings.qml">../../resource/qml/Satnogs_settings.qml</file>
+        <file alias="resource/qml/Satnogs_settingsForm.ui.qml">../../resource/qml/Satnogs_settingsForm.ui.qml</file>
+        <file alias="resource/qml/GUI_General.qml">../../resource/qml/GUI_General.qml</file>
+        <file alias="resource/qml/GUI_MenuEntry.qml">../../resource/qml/GUI_MenuEntry.qml</file>
+        <file alias="resource/qml/GUI_Page_Settings.qml">../../resource/qml/GUI_Page_Settings.qml</file>
+        <file alias="resource/qml/GUI_Page_Home.qml">../../resource/qml/GUI_Page_Home.qml</file>
+        <file alias="resource/qml/GUI_Page_Values.qml">../../resource/qml/GUI_Page_Values.qml</file>
+        <file alias="resource/qml/Home.qml">../../resource/qml/Home.qml</file>
+        <file alias="resource/qml/HomeForm.ui.qml">../../resource/qml/HomeForm.ui.qml</file>
+        <file alias="resource/qml/GUI_Page_3D.qml">../../resource/qml/GUI_Page_3D.qml</file>
+        <file alias="resource/qml/ValueSelection.qml">../../resource/qml/ValueSelection.qml</file>
+        <file alias="resource/qml/ValueSelection_item.qml">../../resource/qml/ValueSelection_item.qml</file>
+        <file alias="resource/qml/ValueChart.qml">../../resource/qml/ValueChart.qml</file>
+        <file alias="resource/qml/ValueChart_item.qml">../../resource/qml/ValueChart_item.qml</file>
+        <file alias="resource/qml/ValueNotes.qml">../../resource/qml/ValueNotes.qml</file>
+        <file alias="resource/qml/SatnogsNote.qml">../../resource/qml/SatnogsNote.qml</file>
+        <file alias="resource/qml/Overlay_Observation.qml">../../resource/qml/Overlay_Observation.qml</file>
+        <file alias="resource/qml/Menu_controller.qml">../../resource/qml/Menu_controller.qml</file>
+        <file alias="resource/qml/D3_Clouds.qml">../../resource/qml/D3_Clouds.qml</file>
+        <file alias="resource/qml/D3_CoordinationSystem.qml">../../resource/qml/D3_CoordinationSystem.qml</file>
+        <file alias="resource/qml/D3_OrbitMarker.qml">../../resource/qml/D3_OrbitMarker.qml</file>
+        <file alias="resource/qml/MainWindow.qml">../../resource/qml/MainWindow.qml</file>
+        <file alias="resource/qml/D3_Sun.qml">../../resource/qml/D3_Sun.qml</file>
+        <file alias="resource/qml/Overlay_Camera.qml">../../resource/qml/Overlay_Camera.qml</file>
+        <file alias="resource/qml/Overlay_Play.qml">../../resource/qml/Overlay_Play.qml</file>
+        <file alias="resource/qml/D3_ShortCoordinationSystem.qml">../../resource/qml/D3_ShortCoordinationSystem.qml</file>
+        <file alias="resource/qml/D3_Plane.qml">../../resource/qml/D3_Plane.qml</file>
+        <file alias="resource/qml/Overlay_Axis.qml">../../resource/qml/Overlay_Axis.qml</file>
+        <file alias="resource/qml/GUI_Page_Overflight.qml">../../resource/qml/GUI_Page_Overflight.qml</file>
+        <file alias="resource/qml/Overflight_settings.qml">../../resource/qml/Overflight_settings.qml</file>
+        <file alias="resource/qml/Overflight_chart.qml">../../resource/qml/Overflight_chart.qml</file>
+        <file alias="resource/qml/Overflight_passes.qml">../../resource/qml/Overflight_passes.qml</file>
+        <file alias="resource/qml/Overflight_passes_item.qml">../../resource/qml/Overflight_passes_item.qml</file>
+        <file alias="resource/qml/Overflight_note.qml">../../resource/qml/Overflight_note.qml</file>
+    </qresource>
+</RCC>

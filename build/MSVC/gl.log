@@ -1,0 +1,385 @@
+12/07/2020 06:43:24 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 06:43:24 PM INFO:No module list found
+12/07/2020 06:43:24 PM INFO:(END) Archive module(s) loading :
+12/07/2020 06:43:24 PM INFO:No module list found
+12/07/2020 06:43:24 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 06:43:24 PM INFO:No module list found
+12/07/2020 06:43:24 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 06:43:24 PM INFO:No module list found
+12/07/2020 06:43:24 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 06:43:24 PM INFO:No module list found
+12/07/2020 06:43:24 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 06:43:24 PM INFO:No module list found
+12/07/2020 06:43:24 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 06:43:25 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 06:43:25 PM INFO:job 1 scanning page...1
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 06:43:25 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 06:43:25 PM INFO:job 1 terminated
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): archive.org:443
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T08-58-10 HTTP/1.1" 200 90
+12/07/2020 06:43:25 PM INFO:downloading...data_1737709_2020-02-22T08-58-10
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/waterfall_1737709_2020-02-22T08-57-04.png HTTP/1.1" 200 1696912
+12/07/2020 06:43:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T09-00-13 HTTP/1.1" 200 90
+12/07/2020 06:43:25 PM INFO:downloading...data_1737709_2020-02-22T09-00-13
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T09-02-16 HTTP/1.1" 200 90
+12/07/2020 06:43:25 PM INFO:downloading...data_1737709_2020-02-22T09-02-16
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM INFO:downloading...waterfall_1737709_2020-02-22T08-57-04.png
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T08-58-10 HTTP/1.1" 200 90
+12/07/2020 06:43:25 PM INFO:downloading...data_1737713_2020-02-22T08-58-10
+12/07/2020 06:43:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/waterfall_1737713_2020-02-22T08-57-04.png HTTP/1.1" 200 1693636
+12/07/2020 06:43:26 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T09-00-13 HTTP/1.1" 200 90
+12/07/2020 06:43:26 PM INFO:downloading...data_1737713_2020-02-22T09-00-13
+12/07/2020 06:43:26 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:43:26 PM DEBUG:https://archive.org:443 "GET /download/satnogs-observation-1737709/satnogs_1737709_2020-02-22T08-57-04.ogg HTTP/1.1" 302 None
+12/07/2020 06:43:26 PM DEBUG:Starting new HTTPS connection (1): ia802907.us.archive.org:443
+12/07/2020 06:43:26 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T09-02-17 HTTP/1.1" 200 90
+12/07/2020 06:43:26 PM INFO:downloading...data_1737713_2020-02-22T09-02-17
+12/07/2020 06:43:26 PM INFO:downloading...waterfall_1737713_2020-02-22T08-57-04.png
+12/07/2020 06:47:31 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 06:47:31 PM INFO:No module list found
+12/07/2020 06:47:31 PM INFO:(END) Archive module(s) loading :
+12/07/2020 06:47:31 PM INFO:No module list found
+12/07/2020 06:47:31 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 06:47:31 PM INFO:No module list found
+12/07/2020 06:47:31 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 06:47:31 PM INFO:No module list found
+12/07/2020 06:47:31 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 06:47:31 PM INFO:No module list found
+12/07/2020 06:47:31 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 06:47:31 PM INFO:No module list found
+12/07/2020 06:47:31 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 06:47:32 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 06:47:32 PM INFO:job 1 scanning page...1
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 06:47:32 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 06:47:32 PM INFO:job 1 terminated
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): archive.org:443
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:32 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/waterfall_1737709_2020-02-22T08-57-04.png HTTP/1.1" 200 1696912
+12/07/2020 06:47:32 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T08-58-10 HTTP/1.1" 200 90
+12/07/2020 06:47:32 PM INFO:downloading...data_1737709_2020-02-22T08-58-10
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:32 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T09-00-13 HTTP/1.1" 200 90
+12/07/2020 06:47:32 PM INFO:downloading...data_1737709_2020-02-22T09-00-13
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:32 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T09-02-16 HTTP/1.1" 200 90
+12/07/2020 06:47:32 PM INFO:downloading...data_1737709_2020-02-22T09-02-16
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:32 PM INFO:downloading...waterfall_1737709_2020-02-22T08-57-04.png
+12/07/2020 06:47:32 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:33 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T08-58-10 HTTP/1.1" 200 90
+12/07/2020 06:47:33 PM INFO:downloading...data_1737713_2020-02-22T08-58-10
+12/07/2020 06:47:33 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:33 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/waterfall_1737713_2020-02-22T08-57-04.png HTTP/1.1" 200 1693636
+12/07/2020 06:47:33 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T09-00-13 HTTP/1.1" 200 90
+12/07/2020 06:47:33 PM INFO:downloading...data_1737713_2020-02-22T09-00-13
+12/07/2020 06:47:33 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:47:33 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T09-02-17 HTTP/1.1" 200 90
+12/07/2020 06:47:33 PM INFO:downloading...data_1737713_2020-02-22T09-02-17
+12/07/2020 06:47:33 PM INFO:downloading...waterfall_1737713_2020-02-22T08-57-04.png
+12/07/2020 06:47:34 PM DEBUG:https://archive.org:443 "GET /download/satnogs-observation-1737709/satnogs_1737709_2020-02-22T08-57-04.ogg HTTP/1.1" 302 None
+12/07/2020 06:47:34 PM DEBUG:Starting new HTTPS connection (1): ia802907.us.archive.org:443
+12/07/2020 06:47:35 PM DEBUG:https://ia802907.us.archive.org:443 "GET /3/items/satnogs-observation-1737709/satnogs_1737709_2020-02-22T08-57-04.ogg HTTP/1.1" 200 12334593
+12/07/2020 06:54:24 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 06:54:24 PM INFO:No module list found
+12/07/2020 06:54:24 PM INFO:(END) Archive module(s) loading :
+12/07/2020 06:54:24 PM INFO:No module list found
+12/07/2020 06:54:24 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 06:54:24 PM INFO:No module list found
+12/07/2020 06:54:24 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 06:54:24 PM INFO:No module list found
+12/07/2020 06:54:24 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 06:54:24 PM INFO:No module list found
+12/07/2020 06:54:24 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 06:54:24 PM INFO:No module list found
+12/07/2020 06:54:24 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 06:54:24 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 06:54:24 PM INFO:job 1 scanning page...1
+12/07/2020 06:54:24 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 06:54:25 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 06:54:25 PM INFO:job 1 terminated
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): archive.org:443
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/waterfall_1737709_2020-02-22T08-57-04.png HTTP/1.1" 200 1696912
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T08-58-10 HTTP/1.1" 200 90
+12/07/2020 06:54:25 PM INFO:downloading...data_1737709_2020-02-22T08-58-10
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T09-00-13 HTTP/1.1" 200 90
+12/07/2020 06:54:25 PM INFO:downloading...data_1737709_2020-02-22T09-00-13
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM INFO:downloading...waterfall_1737709_2020-02-22T08-57-04.png
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737709/data_1737709_2020-02-22T09-02-16 HTTP/1.1" 200 90
+12/07/2020 06:54:25 PM INFO:downloading...data_1737709_2020-02-22T09-02-16
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/waterfall_1737713_2020-02-22T08-57-04.png HTTP/1.1" 200 1693636
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T08-58-10 HTTP/1.1" 200 90
+12/07/2020 06:54:25 PM INFO:downloading...data_1737713_2020-02-22T08-58-10
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:25 PM DEBUG:https://archive.org:443 "GET /download/satnogs-observation-1737709/satnogs_1737709_2020-02-22T08-57-04.ogg HTTP/1.1" 302 None
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): ia802907.us.archive.org:443
+12/07/2020 06:54:25 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T09-00-13 HTTP/1.1" 200 90
+12/07/2020 06:54:25 PM INFO:downloading...data_1737713_2020-02-22T09-00-13
+12/07/2020 06:54:25 PM DEBUG:Starting new HTTPS connection (1): network-satnogs.freetls.fastly.net:443
+12/07/2020 06:54:26 PM DEBUG:https://network-satnogs.freetls.fastly.net:443 "GET /media/data_obs/1737713/data_1737713_2020-02-22T09-02-17 HTTP/1.1" 200 90
+12/07/2020 06:54:26 PM INFO:downloading...data_1737713_2020-02-22T09-02-17
+12/07/2020 06:54:26 PM INFO:downloading...waterfall_1737713_2020-02-22T08-57-04.png
+12/07/2020 06:54:27 PM DEBUG:https://ia802907.us.archive.org:443 "GET /3/items/satnogs-observation-1737709/satnogs_1737709_2020-02-22T08-57-04.ogg HTTP/1.1" 200 12334593
+12/07/2020 06:54:30 PM INFO:downloading archive...satnogs_1737709_2020-02-22T08-57-04.ogg
+12/07/2020 06:54:30 PM DEBUG:Starting new HTTPS connection (1): archive.org:443
+12/07/2020 06:54:31 PM DEBUG:https://archive.org:443 "GET /download/satnogs-observation-1737713/satnogs_1737713_2020-02-22T08-57-04.ogg HTTP/1.1" 302 None
+12/07/2020 06:54:31 PM DEBUG:Starting new HTTPS connection (1): ia802906.us.archive.org:443
+12/07/2020 06:54:31 PM DEBUG:https://ia802906.us.archive.org:443 "GET /32/items/satnogs-observation-1737713/satnogs_1737713_2020-02-22T08-57-04.ogg HTTP/1.1" 200 12396949
+12/07/2020 06:54:36 PM INFO:downloading archive...satnogs_1737713_2020-02-22T08-57-04.ogg
+12/07/2020 06:54:36 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 06:54:36 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 07:49:47 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 07:49:47 PM INFO:No module list found
+12/07/2020 07:49:47 PM INFO:(END) Archive module(s) loading :
+12/07/2020 07:49:47 PM INFO:No module list found
+12/07/2020 07:49:47 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 07:49:47 PM INFO:No module list found
+12/07/2020 07:49:47 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 07:49:47 PM INFO:No module list found
+12/07/2020 07:49:47 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 07:49:47 PM INFO:No module list found
+12/07/2020 07:49:47 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 07:49:47 PM INFO:No module list found
+12/07/2020 07:49:47 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 07:49:47 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 07:49:47 PM INFO:job 1 scanning page...1
+12/07/2020 07:49:47 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 07:49:47 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 07:49:47 PM INFO:job 1 terminated
+12/07/2020 07:49:47 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 07:49:47 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 07:49:47 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 07:49:47 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 07:49:47 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 07:49:47 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 07:49:47 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 07:49:47 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 07:50:20 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 07:50:20 PM INFO:No module list found
+12/07/2020 07:50:20 PM INFO:(END) Archive module(s) loading :
+12/07/2020 07:50:20 PM INFO:No module list found
+12/07/2020 07:50:20 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 07:50:20 PM INFO:No module list found
+12/07/2020 07:50:20 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 07:50:20 PM INFO:No module list found
+12/07/2020 07:50:20 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 07:50:20 PM INFO:No module list found
+12/07/2020 07:50:20 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 07:50:20 PM INFO:No module list found
+12/07/2020 07:50:20 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 07:50:20 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 07:50:20 PM INFO:job 1 scanning page...1
+12/07/2020 07:50:20 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 07:50:20 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 07:50:20 PM INFO:job 1 terminated
+12/07/2020 07:50:20 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 07:50:20 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 07:50:20 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 07:50:20 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 07:50:20 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 07:50:20 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 07:50:20 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 07:50:20 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 07:53:41 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 07:53:41 PM INFO:No module list found
+12/07/2020 07:53:41 PM INFO:(END) Archive module(s) loading :
+12/07/2020 07:53:41 PM INFO:No module list found
+12/07/2020 07:53:41 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 07:53:41 PM INFO:No module list found
+12/07/2020 07:53:41 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 07:53:41 PM INFO:No module list found
+12/07/2020 07:53:41 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 07:53:41 PM INFO:No module list found
+12/07/2020 07:53:41 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 07:53:41 PM INFO:No module list found
+12/07/2020 07:53:41 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 07:53:41 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 07:53:41 PM INFO:job 1 scanning page...1
+12/07/2020 07:53:41 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 07:53:42 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 07:53:42 PM INFO:job 1 terminated
+12/07/2020 07:53:42 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 07:53:42 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 07:53:42 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 07:53:42 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 07:53:42 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 07:53:42 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 07:53:42 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 07:53:42 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 08:02:15 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 08:02:15 PM INFO:No module list found
+12/07/2020 08:02:15 PM INFO:(END) Archive module(s) loading :
+12/07/2020 08:02:15 PM INFO:No module list found
+12/07/2020 08:02:15 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 08:02:15 PM INFO:No module list found
+12/07/2020 08:02:15 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 08:02:15 PM INFO:No module list found
+12/07/2020 08:02:15 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 08:02:15 PM INFO:No module list found
+12/07/2020 08:02:15 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 08:02:15 PM INFO:No module list found
+12/07/2020 08:02:15 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:02:15 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 08:02:15 PM INFO:job 1 scanning page...1
+12/07/2020 08:02:15 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:02:16 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 08:02:16 PM INFO:job 1 terminated
+12/07/2020 08:02:16 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:02:16 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:02:16 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:02:16 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:02:16 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 08:02:16 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 08:02:16 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 08:02:16 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 08:23:24 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 08:23:24 PM INFO:No module list found
+12/07/2020 08:23:24 PM INFO:(END) Archive module(s) loading :
+12/07/2020 08:23:24 PM INFO:No module list found
+12/07/2020 08:23:24 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 08:23:24 PM INFO:No module list found
+12/07/2020 08:23:24 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 08:23:24 PM INFO:No module list found
+12/07/2020 08:23:24 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 08:23:24 PM INFO:No module list found
+12/07/2020 08:23:24 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 08:23:24 PM INFO:No module list found
+12/07/2020 08:23:24 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:23:25 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 08:23:25 PM INFO:job 1 scanning page...1
+12/07/2020 08:23:25 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:23:25 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 08:23:25 PM INFO:job 1 terminated
+12/07/2020 08:23:25 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:23:25 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:23:25 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:23:25 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 08:23:25 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:23:25 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 08:23:25 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 08:23:25 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 08:25:08 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 08:25:08 PM INFO:No module list found
+12/07/2020 08:25:08 PM INFO:(END) Archive module(s) loading :
+12/07/2020 08:25:08 PM INFO:No module list found
+12/07/2020 08:25:08 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 08:25:08 PM INFO:No module list found
+12/07/2020 08:25:08 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 08:25:08 PM INFO:No module list found
+12/07/2020 08:25:08 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 08:25:08 PM INFO:No module list found
+12/07/2020 08:25:08 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 08:25:08 PM INFO:No module list found
+12/07/2020 08:25:08 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:25:08 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 08:25:08 PM INFO:job 1 scanning page...1
+12/07/2020 08:25:08 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:25:08 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 08:25:08 PM INFO:job 1 terminated
+12/07/2020 08:25:08 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:25:08 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:25:08 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:25:08 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 08:25:08 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:25:08 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 08:25:08 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 08:25:08 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/07/2020 08:25:37 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 08:25:37 PM INFO:No module list found
+12/07/2020 08:25:37 PM INFO:(END) Archive module(s) loading :
+12/07/2020 08:25:37 PM INFO:No module list found
+12/07/2020 08:25:37 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 08:25:37 PM INFO:No module list found
+12/07/2020 08:25:37 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 08:25:37 PM INFO:No module list found
+12/07/2020 08:25:37 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 08:25:37 PM INFO:No module list found
+12/07/2020 08:25:37 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 08:25:37 PM INFO:No module list found
+12/07/2020 08:25:37 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:25:37 PM ERROR:HTTPSConnectionPool(host='network.satnogs.org', port=443): Max retries exceeded with url: /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000001EF88AE7910>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+12/07/2020 08:26:33 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/07/2020 08:26:33 PM INFO:No module list found
+12/07/2020 08:26:33 PM INFO:(END) Archive module(s) loading :
+12/07/2020 08:26:33 PM INFO:No module list found
+12/07/2020 08:26:33 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/07/2020 08:26:33 PM INFO:No module list found
+12/07/2020 08:26:33 PM INFO:(END) Waterfall module(s) loading :
+12/07/2020 08:26:33 PM INFO:No module list found
+12/07/2020 08:26:33 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/07/2020 08:26:33 PM INFO:No module list found
+12/07/2020 08:26:33 PM INFO:(END) Demoddata module(s) loading :
+12/07/2020 08:26:33 PM INFO:No module list found
+12/07/2020 08:26:33 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:26:33 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/07/2020 08:26:33 PM INFO:job 1 scanning page...1
+12/07/2020 08:26:33 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/07/2020 08:26:33 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/07/2020 08:26:33 PM INFO:job 1 terminated
+12/07/2020 08:26:33 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:26:33 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:26:33 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/07/2020 08:26:33 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/07/2020 08:26:33 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/07/2020 08:26:33 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/07/2020 08:26:33 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/07/2020 08:26:33 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download
+12/08/2020 03:54:22 PM INFO:(FOR_EACH) Archive module(s) loading :
+12/08/2020 03:54:22 PM INFO:No module list found
+12/08/2020 03:54:22 PM INFO:(END) Archive module(s) loading :
+12/08/2020 03:54:22 PM INFO:No module list found
+12/08/2020 03:54:22 PM INFO:(FOR_EACH) Waterfall module(s) loading :
+12/08/2020 03:54:22 PM INFO:No module list found
+12/08/2020 03:54:22 PM INFO:(END) Waterfall module(s) loading :
+12/08/2020 03:54:22 PM INFO:No module list found
+12/08/2020 03:54:22 PM INFO:(FOR_EACH) Demoddata module(s) loading :
+12/08/2020 03:54:22 PM INFO:No module list found
+12/08/2020 03:54:22 PM INFO:(END) Demoddata module(s) loading :
+12/08/2020 03:54:22 PM INFO:No module list found
+12/08/2020 03:54:22 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/08/2020 03:54:22 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=1&format=json HTTP/1.1" 200 3651
+12/08/2020 03:54:22 PM INFO:job 1 scanning page...1
+12/08/2020 03:54:22 PM DEBUG:Starting new HTTPS connection (1): network.satnogs.org:443
+12/08/2020 03:54:23 PM DEBUG:https://network.satnogs.org:443 "GET /api/observations/?satellite__norad_cat_id=45263&start=2020-02-22T08%3A57%3A00&end=2020-02-22T09%3A04%3A50&vetted_status=good&page=2&format=json HTTP/1.1" 404 26
+12/08/2020 03:54:23 PM INFO:job 1 terminated
+12/08/2020 03:54:23 PM WARNING:pass satnogs_1737709_2020-02-22T08-57-04.ogg... file already exist
+12/08/2020 03:54:23 PM WARNING:pass waterfall_1737709_2020-02-22T08-57-04.png... file already exist
+12/08/2020 03:54:23 PM WARNING:pass satnogs_1737713_2020-02-22T08-57-04.ogg... file already exist
+12/08/2020 03:54:23 PM WARNING:pass data_1737709_2020-02-22T08-58-10... file already exist
+12/08/2020 03:54:23 PM WARNING:pass waterfall_1737713_2020-02-22T08-57-04.png... file already exist
+12/08/2020 03:54:23 PM WARNING:pass data_1737713_2020-02-22T08-58-10... file already exist
+12/08/2020 03:54:23 PM INFO:
+
+all jobs are finished	(   ^ o^)\m/
+12/08/2020 03:54:23 PM INFO:data are stored in C:\Users\TheOlg\Desktop\svn\somp\Somp_data_loader\build\MSVC\download

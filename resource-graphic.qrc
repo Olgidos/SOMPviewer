@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/images/icon.ico</file>
+        <file>resource/objects/positionMarker.STL</file>
+        <file>resource/objects/LitSat-1.obj</file>
+        <file>resource/images/menu.png</file>
+        <file>resource/images/pause.png</file>
+        <file>resource/images/play-button.png</file>
+        <file>resource/images/settings.png</file>
+        <file>resource/images/back.png</file>
+        <file>resource/images/layers.png</file>
+        <file>resource/images/next.png</file>
+        <file>resource/images/worldwide.png</file>
+        <file>resource/images/home-1.png</file>
+        <file>resource/objects/arrow.obj</file>
+        <file>resource/objects/Part2.STL</file>
+        <file>resource/objects/sphere.obj</file>
+        <file>resource/images/highRes/earth_light16k.png</file>
+        <file>resource/images/highRes/earth_normal16k.jpg</file>
+        <file>resource/images/highRes/earth_specular8k.jpg</file>
+        <file>resource/images/highRes/earth16k.jpg</file>
+        <file>resource/images/highRes/night_lights_blank16k.png</file>
+        <file>resource/images/eci.png</file>
+        <file>resource/images/radar.png</file>
+        <file>resource/images/satellite.png</file>
+        <file>resource/images/volume-control-1.png</file>
+        <file>resource/images/checked-1.png</file>
+        <file>resource/images/multiply-1.png</file>
+        <file>resource/objects/shortarrow.obj</file>
+        <file>resource/images/grid.png</file>
+        <file>resource/images/grid_normal.png</file>
+        <file>resource/images/binoculars.png</file>
+        <file>resource/images/highRes/clouds_normal16k.jpg</file>
+        <file>resource/images/highRes/clouds16k.png</file>
+    </qresource>
+</RCC>
