@@ -339,3 +339,4 @@ GroundCommand.pro.user.*
 /Somp_data_loader/build/MSVC/release
 release
 download
+/build/MSVC/debug

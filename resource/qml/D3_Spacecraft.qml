@@ -45,7 +45,7 @@ Entity {
         var z = data[2];
         var scalar = data[3];
 
-        transform.rotation = Qt.quaternion(scalar,x,z,-y);
+        //transform.rotation = Qt.quaternion(scalar,x,z,-y);
     }
 
 

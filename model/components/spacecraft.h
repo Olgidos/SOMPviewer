@@ -47,9 +47,9 @@ class Spacecraft
         void writeCSV_raw();
         void writeCSV_passes();
 
-        void reinit(QDateTime i_datetime, double i_yaw, double i_pitch,
-                    double i_roll, double i_yaw_rate, double i_pitch_rate,
-                    double i_roll_rate);
+        void reinit(QDateTime i_datetime, double i_quat_w, double i_quat_x,
+                    double i_quat_y , double i_quat_z,
+                    double i_yaw_rate, double i_pitch_rate, double i_roll_rate);
 
         QVector3D getPositionECI(bool spacecraft = true);
         QVector3D getDate();
@@ -65,14 +65,6 @@ class Spacecraft
         DatedValueList positionECEF_x;
         DatedValueList positionECEF_y;
         DatedValueList positionECEF_z;
-
-        //oriantation ind deg, deg/s
-        double yaw = 0;
-        double pitch = 0;
-        double roll = 0;
-        double yaw_rate = 0;
-        double pitch_rate = 0;
-        double roll_rate = 0;
 
         //data for passes
         QDateTime passes_start;
@@ -92,6 +84,17 @@ class Spacecraft
         SpiceDouble         epoch;
         SpiceDouble         lt;
         QQuaternion         oriantation;
+
+        //oriantation ind deg, deg/s
+        double quat_w = 0;
+        double quat_x = 0;
+        double quat_y = 0;
+        double quat_z = 0;
+
+        double yaw_rate = 0;
+        double pitch_rate = 0;
+        double roll_rate = 0;
+
 
 
         void getJ2000seconds(QDateTime date, SpiceDouble &et);

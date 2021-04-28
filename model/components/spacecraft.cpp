@@ -66,18 +66,19 @@ void Spacecraft::calc_spacecraft_date(QDateTime i_datetime)
     spkezr_c ( sat_spice_id, et_spacecraft, "J2000", "NONE", "EARTH", state_spacecraft,
                      &lt );
 
-    double _yaw = yaw + (et_spacecraft-et_initial)*yaw_rate;
-    double _pitch = pitch + (et_spacecraft-et_initial)*pitch_rate;
-    double _roll = roll + (et_spacecraft-et_initial)*roll_rate;
+    double yaw = (et_spacecraft-et_initial)*yaw_rate;
+    double pitch = (et_spacecraft-et_initial)*pitch_rate;
+    double roll = (et_spacecraft-et_initial)*roll_rate;
 
     //order of rotation
     //Yaw - x
     //Pitch - z
     //Roll - y
 
-    oriantation = QQuaternion::fromEulerAngles(_yaw,0,0)
-            * QQuaternion::fromEulerAngles(0,0,_pitch)
-            * QQuaternion::fromEulerAngles(0,_roll,0);
+    oriantation = QQuaternion(quat_w,quat_x,quat_y,quat_z).normalized().inverted()
+                    * QQuaternion::fromEulerAngles(yaw,0,0).inverted()
+                    * QQuaternion::fromEulerAngles(0,0,pitch).inverted()
+                    * QQuaternion::fromEulerAngles(0,roll,0).inverted();
 
     //qDebug() << state_spacecraft[0] << " " << state_spacecraft[1] << " " << state_spacecraft[2] << " " ;
 }
@@ -403,13 +404,14 @@ void Spacecraft::getJ2000seconds(QDateTime date, SpiceDouble &et)
  * \param i_pitch_rate in deg/s
  * \param i_roll_rate in deg/s
  */
-void Spacecraft::reinit(QDateTime i_datetime, double i_yaw, double i_pitch,
-                        double i_roll, double i_yaw_rate, double i_pitch_rate,
-                        double i_roll_rate)
+void Spacecraft::reinit(QDateTime i_datetime, double i_quat_w, double i_quat_x,
+                        double i_quat_y , double i_quat_z,
+                        double i_yaw_rate, double i_pitch_rate, double i_roll_rate)
 {
-    yaw = i_yaw;
-    pitch = i_pitch;
-    roll = i_roll;
+    quat_w = i_quat_w;
+    quat_x = i_quat_x;
+    quat_y = i_quat_y;
+    quat_z = i_quat_z;
     yaw_rate = i_yaw_rate;
     pitch_rate = i_pitch_rate;
     roll_rate = i_roll_rate;

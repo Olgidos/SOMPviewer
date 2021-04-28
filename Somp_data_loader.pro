@@ -26,7 +26,6 @@ SOURCES += \
     model/components/dated_observation.cpp \
     model/components/dated_value.cpp \
     model/components/download_manager.cpp \
-    model/components/settings.cpp \
     model/components/spacecraft.cpp \
     model/components/text_progressbar.cpp \
     model/model.cpp \
@@ -52,13 +51,11 @@ HEADERS += \
     libs/_python.h \
     libs/_qml.h \
     model/components/ICRS_to_ECI.h \
-    model/components/SGP4_LIB.h \
     model/components/api_requester.h \
     model/components/dated_observation.h \
     model/components/dated_value.h \
     model/components/download_manager.h \
     model/components/mkspkCon.h \
-    model/components/settings.h \
     model/components/spacecraft.h \
     model/components/text_progressbar.h \
     model/model.h \

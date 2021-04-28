@@ -116,9 +116,10 @@ void Controller::run() {
             QMutexLocker locker(&mutexVal);
             if(model.observationList.length() != 0) {
 
-                double yaw = 0;
-                double pitch = 0;
-                double roll = 0;
+                double quat_w = 0;
+                double quat_x = 0;
+                double quat_y = 0;
+                double quat_z = 0;
                 double yaw_rate = 0;
                 double pitch_rate = 0;
                 double roll_rate = 0;
@@ -126,28 +127,31 @@ void Controller::run() {
 
                 if(current_transmsission_id != -1)
                 for(DatedValueList *list : model.dataLists) {
-                    if(list->getName() == "Yaw angle") {
-                        yaw = list->at(current_transmsission_id).value;
+                    if(list->getName() == "ADCS q_w") {
+                        quat_w = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "Pitch angle") {
-                        pitch = list->at(current_transmsission_id).value;
+                    if(list->getName() == "ADCS q_x") {
+                        quat_x = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "Roll angle") {
-                        roll = list->at(current_transmsission_id).value;
+                    if(list->getName() == "ADCS q_y") {
+                        quat_y = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "X angluar rate") {
+                    if(list->getName() == "ADCS q_z") {
+                        quat_z = list->at(current_transmsission_id).value;
+                    }
+                    if(list->getName() == "ADCS X angluar rate") {
                         yaw_rate = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "Z angluar rate") {
+                    if(list->getName() == "ADCS Z angluar rate") {
                         pitch_rate = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "Y angluar rate") {
+                    if(list->getName() == "ADCS Y angluar rate") {
                         roll_rate = list->at(current_transmsission_id).value;
                     }
                 }
 
 
-                model.spacecraft.reinit(playblack_date, yaw, pitch, roll,
+                model.spacecraft.reinit(playblack_date, quat_w, quat_x, quat_y, quat_z,
                                         yaw_rate, pitch_rate, roll_rate);
                 orbitMarkerX.clear();
                 orbitMarkerY.clear();
@@ -340,7 +344,7 @@ void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axi
 
         if(list->isEmpty()) return;
 
-        double valAxisY_max = DBL_MIN;
+        double valAxisY_max = -DBL_MAX;
         double valAxisY_min = DBL_MAX;
 
         QDateTime valAxisX_max;
@@ -358,9 +362,11 @@ void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axi
 
         for(long i = 0; i < list->size(); i++) {
             points.append(QPointF(list->at(i).date.toLocalTime().toMSecsSinceEpoch() - offset, list->at(i).value));
+
             if(list->at(i).value > valAxisY_max) valAxisY_max = list->at(i).value * 1.2;
-            if(list->at(i).value < valAxisY_min && list->at(i).value > 0) valAxisY_min = list->at(i).value * 0.8;
+            if(list->at(i).value < valAxisY_min && list->at(i).value >= 0) valAxisY_min = list->at(i).value * 0.8;
             if(list->at(i).value < valAxisY_min && list->at(i).value < 0) valAxisY_min = list->at(i).value * 1.2;
+
             progressBar.setStatus(i,list->size());
             progressBar.update();
         }
@@ -370,9 +376,9 @@ void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axi
         progressBar.update();
         progressBar.clear();
 
+
         valAxisX_min = list->first().date.addMSecs( - offset);
         valAxisX_max = list->last().date.addMSecs( - offset);
-
 
         if(valAxisY_max == 0) valAxisY_max = 1;
         if(valAxisY_min == 0) valAxisY_min = -1;
