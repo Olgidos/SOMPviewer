@@ -70,7 +70,9 @@ Entity {
 
     D3_Earth {}
 
-    D3_Plane {}
+    D3_Plane {
+        enabled: grid_enabled
+    }
 
     Connections{
         target: Controller
@@ -86,6 +88,7 @@ Entity {
             camera_free.enabled = true
             camera_free_controller.enabled = true
             activ_cam = camera_free
+            consume_lclick = false
         }
         else {
             camera_free.enabled = false

@@ -32,5 +32,7 @@
         <file>resource/images/binoculars.png</file>
         <file>resource/images/highRes/clouds_normal16k.jpg</file>
         <file>resource/images/highRes/clouds16k.png</file>
+        <file>resource/images/switch.png</file>
+        <file>resource/images/switch-1.png</file>
     </qresource>
 </RCC>

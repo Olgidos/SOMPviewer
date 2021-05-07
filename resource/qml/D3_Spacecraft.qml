@@ -86,14 +86,13 @@ Entity {
 
         function activate_spacecraft_camera(cam_id) {
             if(cam_id === 2) {
-
                 cameraspace.upVector = sat_camera_def_up
                 cameraspace.position = sat_camera_def_pos
                 cameraspace.viewCenter = Qt.vector3d(0, 0, 0)
                 cameraspace.enabled = true
                 cameraspace_controller.enabled = true
                 activ_cam = cameraspace
-
+                consume_lclick = true
             }
             else {
                 cameraspace.enabled = false

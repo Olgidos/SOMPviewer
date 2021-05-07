@@ -8,7 +8,7 @@ Rectangle {
     radius: 5
     color: "#95232323"
     width: 40
-    height: 120
+    height: 157
 
     Button {
         id: button0
@@ -90,6 +90,51 @@ Rectangle {
             icon.color = color_icon_clicked;
         }
     }
+
+    Rectangle {
+        anchors.top: button2.bottom
+        anchors.left: parent.left
+        anchors.topMargin: 3
+        color: "#50000000"
+        height: 2
+        width: parent.width
+    }
+
+    Button {
+        id: button3
+        width: height
+        anchors.topMargin: 0
+        anchors.top: button2.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: qsTr("")
+        icon.color: color_icon
+        icon.height: 25
+        icon.width: 25
+        icon.source: "qrc:/resource/images/switch-1.png"
+        background.visible: false
+        antialiasing: true
+
+        hoverEnabled: true
+        ToolTip.delay: 1000
+        ToolTip.timeout: 5000
+        ToolTip.visible: hovered
+        ToolTip.text: qsTr("on/off grid")
+
+        onClicked: {
+
+            if(!grid_enabled) {
+                icon.source = "qrc:/resource/images/switch-1.png"
+                //icon.color = color_icon_clicked;
+                grid_enabled = true
+            }
+            else {
+                icon.source = "qrc:/resource/images/switch.png"
+                //icon.color = color_icon;
+                grid_enabled = false
+            }
+        }
+    }
+
 
     function bttnReset() {
         button0.icon.color = color_icon

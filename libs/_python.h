@@ -6,6 +6,8 @@
 #include <Python.h>
 #pragma pop_macro("slots")
 
+
+
 /*!
  * \brief runPy can execut a Python string
  * \param string (Python code)

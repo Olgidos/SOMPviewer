@@ -101,7 +101,11 @@ void SatNOGS_loader::handle_API_result(HttpRequestWorker *worker) {
  */
 void SatNOGS_loader::handle_Download_finished()
 {
-    runPyScript(DECODER_PATH);
+    QString path = QDir::currentPath() + "/python";
+    const int py_argc = 1;
+    char* py_argv[py_argc];
+    py_argv[0] = path.toStdString().data();
+    runPyScriptArgs(DECODER_PATH,1,py_argv);
     emit import_finished();
 }
 

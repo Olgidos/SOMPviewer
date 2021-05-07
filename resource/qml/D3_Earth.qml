@@ -174,6 +174,7 @@ Entity {
                 camera_earth.enabled = true
                 camera_earth_controller.enabled = true
                 activ_cam = camera_earth
+                consume_lclick = true
 
             }
             else {

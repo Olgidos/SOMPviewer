@@ -14,7 +14,6 @@ Rectangle {
     property int passesAmount: 0
     property double highesDuration: 0
 
-    signal setColor()
 
     Layout.minimumHeight: labelPasses.height + valuePassesGrid.height + 20
 
@@ -49,13 +48,23 @@ Rectangle {
     Connections{
         target: Controller
         function onPassesCalculated() {
-            if(Controller.getListPasses().length > 0) {
-                labelPasses.text =  qsTr(Controller.getListPasses().length/2 + " Passes")
+
+            var list = Controller.getListPasses()
+
+            if(list.length > 0) {
+                labelPasses.text =  qsTr(list.length/2 + " Passes")
             } else {
                 labelPasses.text =  qsTr("Passes - no passes yet")
             }
 
-            for(var x = 0; x < Controller.getListPasses().length/2 ; x++){
+            highesDuration = 0
+            for(var i = 0; i < list.length/3 ; i++){
+                if(highesDuration <  list[i*3 + 1]){
+                    highesDuration = list[i*3 + 1]
+                }
+            }
+
+            for(var x = 0; x < list.length/3 ; x++){
 
                 var o = Qt.createQmlObject('import QtQuick 2.15;
                                                   Overflight_passes_item {
@@ -65,7 +74,6 @@ Rectangle {
                 passesAmount++
             }
 
-            setColor()
         }
     }
 

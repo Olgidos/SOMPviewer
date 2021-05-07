@@ -61,6 +61,7 @@ class Spacecraft
 
         DatedValueList elevations;
         DatedValueList passes;
+        DatedValueList max_elevations;
         DatedValueList illuminations;
         DatedValueList positionECEF_x;
         DatedValueList positionECEF_y;

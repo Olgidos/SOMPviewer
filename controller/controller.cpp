@@ -127,25 +127,25 @@ void Controller::run() {
 
                 if(current_transmsission_id != -1)
                 for(DatedValueList *list : model.dataLists) {
-                    if(list->getName() == "ADCS q_w") {
+                    if(list->getName() == "q_ib_w") {
                         quat_w = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "ADCS q_x") {
+                    if(list->getName() == "q_ib_i") {
                         quat_x = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "ADCS q_y") {
+                    if(list->getName() == "q_ib_j") {
                         quat_y = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "ADCS q_z") {
+                    if(list->getName() == "q_ib_k") {
                         quat_z = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "ADCS X angluar rate") {
+                    if(list->getName() == "angular_rate_x") {
                         yaw_rate = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "ADCS Z angluar rate") {
+                    if(list->getName() == "angular_rate_y") {
                         pitch_rate = list->at(current_transmsission_id).value;
                     }
-                    if(list->getName() == "ADCS Y angluar rate") {
+                    if(list->getName() == "angular_rate_z") {
                         roll_rate = list->at(current_transmsission_id).value;
                     }
                 }
@@ -251,7 +251,7 @@ void Controller::handleModelImportFinished()
 {
     update_spacecraft = true;
 
-    playblack_date = QDateTime( QDate(2000, 1, 1), QTime(12, 0, 0), QTimeZone::utc() );
+    playblack_date = QDateTime( QDate(2021, 1, 1), QTime(0, 0, 0), QTimeZone::utc() );
     current_transmsission_id = -1;
     current_observation_id = -1;
 
@@ -313,9 +313,10 @@ QVariantList Controller::getListPasses()
     QMutexLocker locker(&mutexVal);
     QVariantList return_list;
 
-    for(DatedValue data : model.spacecraft.passes) {
-        return_list.push_back(data.date.toString());
-        return_list.push_back(data.value);
+    for(int i = 0; i < model.spacecraft.passes.size(); i++) {
+        return_list.push_back(model.spacecraft.passes.at(i).date.toString());
+        return_list.push_back(model.spacecraft.passes.at(i).value);
+        return_list.push_back(model.spacecraft.max_elevations.at(i).value);
     }
     return return_list;
 }
@@ -550,7 +551,7 @@ QVariantList Controller::getSpacecraftData()
 }
 
 /*!
- * \brief Controller::getEarthEphemerides provides earth ephmerides to GUI default J2000
+ * \brief Controller::getEarthEphemerides provides earth ephmerides to GUI
  * \return
  */
 QVariantList Controller::getEarthEphemerides()
@@ -559,17 +560,11 @@ QVariantList Controller::getEarthEphemerides()
     QMutexLocker locker(&mutexVal);
     QVariantList gui_buffer;
 
-//    if(current_transmsission_id != -1 && model.earthEphermerides.size() != 0) {
     Vector3D d3 = model.getSunEphermis(playblack_date);
     gui_buffer.append( d3.x );
     gui_buffer.append( d3.y );
     gui_buffer.append( d3.z );
 
-//    } else{
-//        gui_buffer.append( -0.17566 );
-//        gui_buffer.append( 0.96599 );
-//        gui_buffer.append( 0.0004 );
-//    }
     return gui_buffer;
 }
 
@@ -601,7 +596,7 @@ QVariantList Controller::getTransmissionData()
 }
 
 /*!
- * \brief Controller::getEarthEphemerides provides current date to GUI, default J2000
+ * \brief Controller::getEarthEphemerides provides current date to GUI
  * \return
  */
 QVariantList Controller::getPlaybackDate()

@@ -173,7 +173,7 @@ QQuaternion Model::getEarthRotation(QDateTime date)
     SpiceDouble et;
     getJ2000seconds(date, et);
     SpiceDouble mat[3][3];
-    pxform_c ( "J2000", "IAU_EARTH", et, mat );
+    pxform_c ( "J2000", "ITRF93", et, mat );
     QVector3D x = QVector3D(mat[0][0],mat[0][1],mat[0][2]);
     QVector3D y = QVector3D(mat[1][0],mat[1][1],mat[1][2]);
     QVector3D z = QVector3D(mat[2][0],mat[2][1],mat[2][2]);

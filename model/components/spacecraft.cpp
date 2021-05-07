@@ -6,6 +6,7 @@
 Spacecraft::Spacecraft() :
     elevations("elevation", "degree"),
     passes("pass_duration", "s"),
+    max_elevations("max_elevation", "deg"),
     illuminations("illuminated", "boolean"),
     positionECEF_x("SC_ECEF_x", "km"),
     positionECEF_y("SC_ECEF_y", "km"),
@@ -98,6 +99,7 @@ void Spacecraft::predictPasses()
     positionECEF_x.clear();
     positionECEF_y.clear();
     positionECEF_z.clear();
+    max_elevations.clear();
 
     progressBar.setMessage("predict passes");
 
@@ -120,6 +122,8 @@ void Spacecraft::predictPasses()
 
     bool pass = false;
     QDateTime pass_time;
+    double max_elevation;
+    QDateTime max_elevation_date;
 
     while(et_start + time < et_end) {
         spkcpo_c(sat_spice_id, et_start + time, "IAU_EARTH" , "OBSERVER" , "NONE", position_obs , "EARTH", "IAU_EARTH" , state , &lt);
@@ -153,10 +157,20 @@ void Spacecraft::predictPasses()
             pass_time = passes_start.addSecs(time);
         }
 
+        if(pass && angle > max_elevation) {
+            max_elevation = angle;
+            max_elevation_date = passes_start.addSecs(time);
+        }
+
         if(pass && angle < obs_min_elevation) {
             pass = false;
+
+            max_elevations.append(DatedValue(max_elevation, max_elevation_date, -1));
+            max_elevation = -180;
+
             passes.append( DatedValue( pass_time.secsTo(passes_start.addSecs(time)), pass_time, -1) );
         }
+
 
         if(angle - obs_min_elevation >= 0 ) {
             time++;
@@ -256,11 +270,10 @@ void Spacecraft::writeCSV_raw() {
  */
 void Spacecraft::writeCSV_passes()
 {
-    QList<DatedValueList*> dataLists;
     QList<QString> names;
 
     names.append(passes.getName() + "_" + passes.getUnit());
-    dataLists.append(&passes);
+    names.append(max_elevations.getName() + "_" + max_elevations.getUnit());
 
     QFile file(CSV_PATH_PASSES);
     file.open(QIODevice::WriteOnly);
@@ -268,22 +281,23 @@ void Spacecraft::writeCSV_passes()
     QTextStream stream(&file);
 
     stream << "start_date" << ",";
-    for(QString name : names) {
-        stream << name << ",";
-    }
+    stream << passes.getName() << "_" << passes.getUnit() << ",";
+    stream << "max_elevation_date" << ",";
+    stream << max_elevations.getName() << "_" << max_elevations.getUnit() << ",";
 
     stream << "\n";
-    long l = dataLists.at(0)->length();
+    long l = passes.length();
 
     for(int i = 0; i < l; i++) {
 
-        //write date
-        stream << dataLists.at(0)->at(i).date.toString("yyyy.MM.dd hh:mm:ss") << ",";
+        //write pass
+        stream << passes.at(i).date.toString("yyyy.MM.dd hh:mm:ss") << ",";
+        stream << passes.at(i).value << ",";
 
-        //write data
-        for(int k = 0; k < names.length(); k++) {
-            stream << dataLists.at(k)->at(i).value << ",";
-        }
+        //write elevation
+        stream << max_elevations.at(i).date.toString("yyyy.MM.dd hh:mm:ss") << ",";
+        stream << max_elevations.at(i).value << ",";
+
         stream << "\n";
     }
 
