@@ -58,8 +58,8 @@ class TextProgressBar
 public:
     void clear();
     void update();
-    void setMessage(const QString &message);
-    void setStatus(qint64 value, qint64 maximum);
+    void setMessage(const QString &i_message);
+    void setStatus(const qint64 &i_value, const qint64 &i_maximum);
 
 private:
     QString message;

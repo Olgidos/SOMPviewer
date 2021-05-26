@@ -22,14 +22,15 @@ LIBS += -L"$$APPDATA_DIR\Programs\Python\Python39\libs" -l"python39"
 SOURCES += \
     controller/controller.cpp \
     main.cpp \
-    model/components/api_requester.cpp \
     model/components/dated_observation.cpp \
     model/components/dated_value.cpp \
-    model/components/download_manager.cpp \
-    model/components/spacecraft.cpp \
     model/components/text_progressbar.cpp \
+    model/data_client/components/api_requester.cpp \
+    model/data_client/components/download_manager.cpp \
+    model/data_client/satnogs_loader.cpp \
     model/model.cpp \
-    model/satnogs_loader.cpp
+    model/space_model/space_model.cpp \
+    model/space_model/spacecraft.cpp
 
 
 TRANSLATIONS += \
@@ -50,16 +51,16 @@ HEADERS += \
     controller/controller.h \
     libs/_python.h \
     libs/_qml.h \
-    model/components/ICRS_to_ECI.h \
-    model/components/api_requester.h \
     model/components/dated_observation.h \
     model/components/dated_value.h \
-    model/components/download_manager.h \
     model/components/mkspkCon.h \
-    model/components/spacecraft.h \
     model/components/text_progressbar.h \
+    model/data_client/components/api_requester.h \
+    model/data_client/components/download_manager.h \
+    model/data_client/satnogs_loader.h \
     model/model.h \
-    model/satnogs_loader.h
+    model/space_model/space_model.h \
+    model/space_model/spacecraft.h
 
 
 DISTFILES += \

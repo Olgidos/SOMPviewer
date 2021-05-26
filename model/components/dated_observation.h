@@ -13,7 +13,7 @@ class Dated_observation
 {
 
 public:
-    Dated_observation(QString i_tle1, QString i_tle2, QDateTime i_start);
+    Dated_observation(const QString &i_tle1, const QString &i_tle2, const QDateTime &i_start);
 
     //to make it printable via qDebug()
     operator QString() const {
@@ -63,7 +63,7 @@ public:
     DatedObservationList();
 
     void sort();
-    int getObsIndex(int id);
+    int getObsIndex(const int &i_id);
 };
 
 

@@ -56,33 +56,33 @@
 
 using namespace std;
 
-DownloadManager::DownloadManager(QObject *parent, QString i_path)
-    : QObject(parent),
+DownloadManager::DownloadManager(QObject *i_parent, const QString &i_path)
+    : QObject(i_parent),
       path(i_path)
 {
 }
 
-void DownloadManager::append(const QStringList &urls)
+void DownloadManager::append(const QStringList &i_urls)
 {
-    for (const QString &urlAsString : urls)
+    for (const QString &urlAsString : i_urls)
         append(QUrl::fromEncoded(urlAsString.toLocal8Bit()));
 
     if (downloadQueue.isEmpty())
         QTimer::singleShot(0, this, &DownloadManager::finished);
 }
 
-void DownloadManager::append(const QUrl &url)
+void DownloadManager::append(const QUrl &i_url)
 {
     if (downloadQueue.isEmpty())
         QTimer::singleShot(0, this, &DownloadManager::startNextDownload);
 
-    downloadQueue.enqueue(url);
+    downloadQueue.enqueue(i_url);
     ++totalCount;
 }
 
-QString DownloadManager::saveFileName(const QUrl &url)
+QString DownloadManager::saveFileName(const QUrl &i_url)
 {
-    QString path = url.path();
+    QString path = i_url.path();
     QString basename = "download/" + QFileInfo(path).fileName();
 
     if (basename.isEmpty())
@@ -136,12 +136,12 @@ void DownloadManager::startNextDownload()
     downloadTimer.start();
 }
 
-void DownloadManager::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
+void DownloadManager::downloadProgress(const qint64 i_bytesReceived, const qint64 i_bytesTotal)
 {
-    progressBar.setStatus(bytesReceived, bytesTotal);
+    progressBar.setStatus(i_bytesReceived, i_bytesTotal);
 
     // calculate the download speed
-    double speed = bytesReceived * 1000.0 / downloadTimer.elapsed();
+    double speed = i_bytesReceived * 1000.0 / downloadTimer.elapsed();
     QString unit;
     if (speed < 1024) {
         unit = "bytes/sec";

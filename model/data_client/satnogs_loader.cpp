@@ -1,11 +1,11 @@
 #include "satnogs_loader.h"
 
-SatNOGS_loader::SatNOGS_loader(QObject *parent)
-    : QObject(parent),
+SatnogsLoader::SatnogsLoader(QObject *i_parent)
+    : QObject(i_parent),
       downloader(this, DATA_PATH),
-      api_requester("")
+      apiRequester("")
 {
-    connect(&downloader, SIGNAL(finished()), this, SLOT(handle_Download_finished()));
+    connect(&downloader, SIGNAL(finished()), this, SLOT(handleDownloadFinished()));
 }
 
 
@@ -16,16 +16,17 @@ SatNOGS_loader::SatNOGS_loader(QObject *parent)
  * \param i_end observation end time example: 2020-05-20T10:00:00
  * \param i_status observation status example: good
  */
-void SatNOGS_loader::load(QString i_norad_id, QString i_start, QString i_end, QString i_status, bool keepOldFiles) {
+void SatnogsLoader::load(const QString &i_noradId, const QString &i_start, const QString &i_end,
+                     const QString &i_status, const bool &i_keepOldFiles){
     //clean download folder and reset required parameter
 
-    if(!keepOldFiles) cleanFolder();
+    if(!i_keepOldFiles) cleanFolder();
 
-    found_result = false;
+    foundResult = false;
     jsonResult = QJsonArray();
     page = 1;
 
-    norad_id = i_norad_id;
+    noradId = i_noradId;
     start = i_start;
     end = i_end;
     status = i_status;
@@ -38,22 +39,22 @@ void SatNOGS_loader::load(QString i_norad_id, QString i_start, QString i_end, QS
  * \brief SatNOGS_loader::loadIterative starts the API request, needs to be called multiple times when API answer
  * is longer then a single page
  */
-void SatNOGS_loader::loadIterative()
+void SatnogsLoader::loadIterative()
 {
     //prepare API request
     QString url_str = SATNOGS_URL;
-    api_requester = API_requester(url_str);
-    if(norad_id != "") api_requester.add_var("satellite__norad_cat_id", norad_id);
-    if(start != "") api_requester.add_var("start", start);
-    if(end != "") api_requester.add_var("end", end);
-    if(status != "") api_requester.add_var("status", status);
+    apiRequester = ApiRequester(url_str);
+    if(noradId != "") apiRequester.addVar("satellite__norad_cat_id", noradId);
+    if(start != "") apiRequester.addVar("start", start);
+    if(end != "") apiRequester.addVar("end", end);
+    if(status != "") apiRequester.addVar("status", status);
 
-    api_requester.add_var("page", QString::number(page));
+    apiRequester.addVar("page", QString::number(page));
 
     //MEMORY LEAK?
     HttpRequestWorker *worker = new HttpRequestWorker(this);
-    connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_API_result(HttpRequestWorker*)));
-    worker->execute(&api_requester);
+    connect(worker, SIGNAL(onExecutionFinished(HttpRequestWorker*)), this, SLOT(handleApiResult(HttpRequestWorker*)));
+    worker->execute(&apiRequester);
 }
 
 
@@ -63,20 +64,20 @@ void SatNOGS_loader::loadIterative()
  * \brief SatNOGS_loader::handle_API_result Slot which is called wehn the HttpRequestWorker fhnished his API request
  * \param worker The requesting object, provides the result
  */
-void SatNOGS_loader::handle_API_result(HttpRequestWorker *worker) {
+void SatnogsLoader::handleApiResult(HttpRequestWorker *i_worker) {
 
-    if (worker->error_type == QNetworkReply::NoError) {
+    if (i_worker->errorType == QNetworkReply::NoError) {
 
-        if(worker->response.array().size() == 0) {
+        if(i_worker->response.array().size() == 0) {
             //No Data found
             qDebug() << "There was no data available during the specified dates!";
-            emit import_failed();
+            emit importFailed();
             return;
         }
 
         // communication was successful
-        jsonResult.append(worker->response.array());
-        found_result = true;
+        jsonResult.append(i_worker->response.array());
+        foundResult = true;
 
         qDebug() << "satnogs_Loader: Successfully SatNOGS API call page -" << page;
         page++;
@@ -85,13 +86,13 @@ void SatNOGS_loader::handle_API_result(HttpRequestWorker *worker) {
     } else {
 
         //In case of multiple API pages, recall API until next page is not found
-        if(found_result) {
+        if(foundResult) {
             processResult();
             return;
         }
 
         // an error occurred
-        qDebug() << "satnogs_Loader Error: " << worker->error_str;
+        qDebug() << "satnogs_Loader Error: " << i_worker->errorString;
     }
 }
 
@@ -99,20 +100,20 @@ void SatNOGS_loader::handle_API_result(HttpRequestWorker *worker) {
  * \brief SatNOGS_loader::handle_Download_finished Slot which is called when the observation downloader is finished.
  * Starts the postprocessing of the data via python script
  */
-void SatNOGS_loader::handle_Download_finished()
+void SatnogsLoader::handleDownloadFinished()
 {
     QString path = QDir::currentPath() + "/python";
     const int py_argc = 1;
     char* py_argv[py_argc];
     py_argv[0] = path.toStdString().data();
     runPyScriptArgs(DECODER_PATH,1,py_argv);
-    emit import_finished();
+    emit importFinished();
 }
 
 /*!
  * \brief SatNOGS_loader::processResult Processes the API request and downloades the referred observation files and waterfalls
  */
-void SatNOGS_loader::processResult() {
+void SatnogsLoader::processResult() {
 
     int i = 0;
 
@@ -153,10 +154,11 @@ void SatNOGS_loader::processResult() {
  * \param name Name of the file
  * \param path Path of the file
  */
-void SatNOGS_loader::saveJsonToFile(QJsonObject jsObj, QString name, QString path){
-    QFile file(path + "/" + name + ".json");
+void SatnogsLoader::saveJsonToFile(const QJsonObject &i_jsObj, const QString &i_name,
+                                   const QString &i_path){
+    QFile file(i_path + "/" + i_name + ".json");
     QJsonDocument doc;
-    doc.setObject(jsObj);
+    doc.setObject(i_jsObj);
     file.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
     file.write(doc.toJson());
     file.close();
@@ -166,8 +168,8 @@ void SatNOGS_loader::saveJsonToFile(QJsonObject jsObj, QString name, QString pat
  * \brief SatNOGS_loader::cleanFolder Removes all files from a folder.
  * \param path
  */
-void SatNOGS_loader::cleanFolder(QString path) {
-    QDir dir(path);
+void SatnogsLoader::cleanFolder(const QString &i_path) {
+    QDir dir(i_path);
 //    dir.setNameFilters(QStringList() << "*.*");
     dir.setNameFilters(QStringList() << "*");
     dir.setFilter(QDir::Files);

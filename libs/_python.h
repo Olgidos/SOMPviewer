@@ -12,9 +12,9 @@
  * \brief runPy can execut a Python string
  * \param string (Python code)
  */
-static void runPy(const char* string){
+static void runPy(const char* i_string){
     Py_Initialize();
-    PyRun_SimpleString(string);
+    PyRun_SimpleString(i_string);
     Py_Finalize();
 }
 
@@ -22,11 +22,11 @@ static void runPy(const char* string){
  * \brief runPyScript executs a Python script
  * \param file (the path of the script)
  */
-static void runPyScript(const char* file){
+static void runPyScript(const char* i_file){
     FILE* fp;
     Py_Initialize();
-    fp = _Py_fopen(file, "r");
-    PyRun_SimpleFile(fp, file);
+    fp = _Py_fopen(i_file, "r");
+    PyRun_SimpleFile(fp, i_file);
     Py_Finalize();
 }
 
@@ -36,12 +36,12 @@ static void runPyScript(const char* file){
  * \param argc amount of arguments
  * \param argv array of arguments with size of argc
  */
-static void runPyScriptArgs(const char* file, int argc, char *argv[]){
+static void runPyScriptArgs(const char* i_file, int i_argc, char *i_argv[]){
     FILE* fp;
-    wchar_t** wargv = new wchar_t*[argc];
-    for(int i = 0; i < argc; i++)
+    wchar_t** wargv = new wchar_t*[i_argc];
+    for(int i = 0; i < i_argc; i++)
     {
-        wargv[i] = Py_DecodeLocale(argv[i], nullptr);
+        wargv[i] = Py_DecodeLocale(i_argv[i], nullptr);
         if(wargv[i] == nullptr)
         {
             return;
@@ -50,12 +50,12 @@ static void runPyScriptArgs(const char* file, int argc, char *argv[]){
     Py_SetProgramName(wargv[0]);
 
     Py_Initialize();
-    PySys_SetArgv(argc, wargv);
-    fp = _Py_fopen(file, "r");
-    PyRun_SimpleFile(fp, file);
+    PySys_SetArgv(i_argc, wargv);
+    fp = _Py_fopen(i_file, "r");
+    PyRun_SimpleFile(fp, i_file);
     Py_Finalize();
 
-    for(int i = 0; i < argc; i++)
+    for(int i = 0; i < i_argc; i++)
     {
         PyMem_RawFree(wargv[i]);
         wargv[i] = nullptr;

@@ -5,9 +5,9 @@
 
 inline QQmlContext* rootContext;
 
-static void addClass(const QString name, QObject *obj){
-    rootContext->setContextProperty(name, obj);
-    qDebug() << "MAIN: Class added " << name;
+static void addClass(const QString &i_name, QObject *i_obj){
+    rootContext->setContextProperty(i_name, i_obj);
+    qDebug() << "MAIN: Class added " << i_name;
 }
 
 

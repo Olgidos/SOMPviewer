@@ -38,67 +38,66 @@ class Spacecraft
         const std::string QML_NAME = "Spacecraft";
 
         //Functions
-        QVector3D predictPosition(double seconds);
-        QVector3D predictPosition(QDateTime i_datetime);
-        void calc_next_marker(double seconds);
-        void calc_spacecraft_date(QDateTime i_datetime);
+        QVector3D predictPosition(const double &i_seconds);
+        QVector3D predictPosition(const QDateTime &i_datetime);
+        void calcNextMarker(const double &i_seconds);
+        void calcSpacecraftDate(const QDateTime &i_datetime);
         void predictPasses();
-        bool predictIlluminated(QDateTime dt);
-        void writeCSV_raw();
-        void writeCSV_passes();
+        bool predictIlluminated(const QDateTime &i_dt);
+        void writeCsvRaw();
+        void writeCsvPasses();
 
         void reinit(QDateTime i_datetime, double i_quat_w, double i_quat_x,
                     double i_quat_y , double i_quat_z,
                     double i_yaw_rate, double i_pitch_rate, double i_roll_rate);
 
-        QVector3D getPositionECI(bool spacecraft = true);
+        QVector3D getPositionEci(const bool &i_spacecraft = true);
         QVector3D getDate();
         QVector3D getTime();
         QVector3D getObsPosition();
-        QQuaternion eci_to_LVLH_rot();
-        QVector3D getVelocityECI();
+        QQuaternion eciToLvlhRot();
+        QVector3D getVelocityEci();
         QQuaternion getOrientation();
 
         DatedValueList elevations;
         DatedValueList passes;
-        DatedValueList max_elevations;
+        DatedValueList maxElevations;
         DatedValueList illuminations;
-        DatedValueList positionECEF_x;
-        DatedValueList positionECEF_y;
-        DatedValueList positionECEF_z;
+        DatedValueList positionEcefX;
+        DatedValueList positionEcefY;
+        DatedValueList positionEcefZ;
 
         //data for passes
-        QDateTime passes_start;
-        QDateTime passes_end;
-        double obs_lat;
-        double obs_lon;
-        double obs_min_elevation;
+        QDateTime passesStart;
+        QDateTime passesEnd;
+        double obsLat;
+        double obsLon;
+        double obsMinElevation;
         TextProgressBar progressBar;
 
     private:
-        SpiceDouble         et_initial;
-        SpiceDouble         et_spacecraft;
-        SpiceDouble         et_marker;
-        SpiceDouble         state_spacecraft[6];
-        SpiceDouble         state_marker[6];
+        SpiceDouble         etInitial;
+        SpiceDouble         etSpacecraft;
+        SpiceDouble         etMarker;
+        SpiceDouble         stateSpacecraft[6];
+        SpiceDouble         stateMarker[6];
         SpiceDouble         position_obs[3];
         SpiceDouble         epoch;
         SpiceDouble         lt;
         QQuaternion         oriantation;
 
         //oriantation ind deg, deg/s
-        double quat_w = 0;
-        double quat_x = 0;
-        double quat_y = 0;
-        double quat_z = 0;
+        double quatW = 0;
+        double quatX = 0;
+        double quatY = 0;
+        double quatZ = 0;
 
-        double yaw_rate = 0;
-        double pitch_rate = 0;
-        double roll_rate = 0;
+        double yawRate = 0;
+        double pitchRate = 0;
+        double rollRate = 0;
 
 
-
-        void getJ2000seconds(QDateTime date, SpiceDouble &et);
+        void getJ2000seconds(const QDateTime &i_date, SpiceDouble &i_et);
 
 
 };

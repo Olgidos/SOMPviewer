@@ -6,11 +6,11 @@
 Spacecraft::Spacecraft() :
     elevations("elevation", "degree"),
     passes("pass_duration", "s"),
-    max_elevations("max_elevation", "deg"),
+    maxElevations("max_elevation", "deg"),
     illuminations("illuminated", "boolean"),
-    positionECEF_x("SC_ECEF_x", "km"),
-    positionECEF_y("SC_ECEF_y", "km"),
-    positionECEF_z("SC_ECEF_z", "km")
+    positionEcefX("SC_ECEF_x", "km"),
+    positionEcefY("SC_ECEF_y", "km"),
+    positionEcefZ("SC_ECEF_z", "km")
 {
 }
 
@@ -20,10 +20,10 @@ Spacecraft::Spacecraft() :
  * \param seconds
  * \return
  */
-QVector3D Spacecraft::predictPosition(double seconds)
+QVector3D Spacecraft::predictPosition(const double &i_seconds)
 {
     SpiceDouble state[6];
-    spkezr_c ( sat_spice_id, et_spacecraft + seconds, "J2000", "NONE", "EARTH", state,
+    spkezr_c ( sat_spice_id, etSpacecraft + i_seconds, "J2000", "NONE", "EARTH", state,
                      &lt );
     return QVector3D(state[0],state[1],state[2]);
 }
@@ -35,7 +35,7 @@ QVector3D Spacecraft::predictPosition(double seconds)
  * \param i_datetime
  * \return
  */
-QVector3D Spacecraft::predictPosition(QDateTime i_datetime)
+QVector3D Spacecraft::predictPosition(const QDateTime &i_datetime)
 {
     SpiceDouble state[6];
     SpiceDouble et;
@@ -49,9 +49,9 @@ QVector3D Spacecraft::predictPosition(QDateTime i_datetime)
  * \param i_Sseconds in seconds
  * \return Spacecraft report containing DateTime dt, CoordTopocentric topp, CoordGeodetic geo
  */
-void Spacecraft::calc_next_marker(double seconds) {
-    et_marker += seconds;
-    spkezr_c ( sat_spice_id, et_marker, "J2000", "NONE", "EARTH", state_marker,
+void Spacecraft::calcNextMarker(const double &i_seconds) {
+    etMarker += i_seconds;
+    spkezr_c ( sat_spice_id, etMarker, "J2000", "NONE", "EARTH", stateMarker,
                      &lt );
 }
 
@@ -59,24 +59,24 @@ void Spacecraft::calc_next_marker(double seconds) {
  * \brief Spacecraft::calc_date calc position of S/C @ datetime
  * \param i_datetime
  */
-void Spacecraft::calc_spacecraft_date(QDateTime i_datetime)
+void Spacecraft::calcSpacecraftDate(const QDateTime &i_datetime)
 {
-    getJ2000seconds(i_datetime, et_spacecraft);
+    getJ2000seconds(i_datetime, etSpacecraft);
     //et_spacecraft -= 2212;
-    et_marker = et_spacecraft;
-    spkezr_c ( sat_spice_id, et_spacecraft, "J2000", "NONE", "EARTH", state_spacecraft,
+    etMarker = etSpacecraft;
+    spkezr_c ( sat_spice_id, etSpacecraft, "J2000", "NONE", "EARTH", stateSpacecraft,
                      &lt );
 
-    double yaw = (et_spacecraft-et_initial)*yaw_rate;
-    double pitch = (et_spacecraft-et_initial)*pitch_rate;
-    double roll = (et_spacecraft-et_initial)*roll_rate;
+    double yaw = (etSpacecraft-etInitial)*yawRate;
+    double pitch = (etSpacecraft-etInitial)*pitchRate;
+    double roll = (etSpacecraft-etInitial)*rollRate;
 
     //order of rotation
     //Yaw - x
     //Pitch - z
     //Roll - y
 
-    oriantation = QQuaternion(quat_w,quat_x,quat_y,quat_z).normalized().inverted()
+    oriantation = QQuaternion(quatW,quatX,quatY,quatZ).normalized().inverted()
                     * QQuaternion::fromEulerAngles(yaw,0,0).inverted()
                     * QQuaternion::fromEulerAngles(0,0,pitch).inverted()
                     * QQuaternion::fromEulerAngles(0,roll,0).inverted();
@@ -96,26 +96,26 @@ void Spacecraft::predictPasses()
     elevations.clear();
     passes.clear();
     illuminations.clear();
-    positionECEF_x.clear();
-    positionECEF_y.clear();
-    positionECEF_z.clear();
-    max_elevations.clear();
+    positionEcefX.clear();
+    positionEcefY.clear();
+    positionEcefZ.clear();
+    maxElevations.clear();
 
     progressBar.setMessage("predict passes");
 
 
     //latrec_c(EARTH_RADIUS, obs_lon,obs_lat, position_obs);
-    obs_lon = obs_lon * M_PI /180;
-    obs_lat = obs_lat * M_PI /180;
+    obsLon = obsLon * M_PI /180;
+    obsLat = obsLat * M_PI /180;
 
-    position_obs[0] = EARTH_RADIUS*cos(obs_lon)*cos(obs_lat);
-    position_obs[1] = EARTH_RADIUS*sin(obs_lon)*cos(obs_lat);
-    position_obs[2] = EARTH_RADIUS*sin(obs_lat);
+    position_obs[0] = EARTH_RADIUS*cos(obsLon)*cos(obsLat);
+    position_obs[1] = EARTH_RADIUS*sin(obsLon)*cos(obsLat);
+    position_obs[2] = EARTH_RADIUS*sin(obsLat);
 
     SpiceDouble et_start;
     SpiceDouble et_end;
-    getJ2000seconds(passes_start, et_start);
-    getJ2000seconds(passes_end, et_end);
+    getJ2000seconds(passesStart, et_start);
+    getJ2000seconds(passesEnd, et_end);
     SpiceDouble state[6];
 
     double time = 0;
@@ -133,49 +133,49 @@ void Spacecraft::predictPasses()
         double square2 = position_obs[0]*position_obs[0] + position_obs[1]*position_obs[1] + position_obs[2]*position_obs[2];
         double angle = 90 - acos(dot/sqrt(square1 * square2)) / M_PI * 180.0 ;
 
-        elevations.append(DatedValue(angle,passes_start.addSecs(time),-1));
+        elevations.append(DatedValue(angle,passesStart.addSecs(time),-1));
 
         //predict illumination for same dataset
-        if(predictIlluminated(passes_start.addSecs(time))) {
-            illuminations.append(DatedValue(obs_min_elevation,passes_start.addSecs(time),-1));
+        if(predictIlluminated(passesStart.addSecs(time))) {
+            illuminations.append(DatedValue(obsMinElevation,passesStart.addSecs(time),-1));
         } else {
-            illuminations.append(DatedValue(0,passes_start.addSecs(time),-1));
+            illuminations.append(DatedValue(0,passesStart.addSecs(time),-1));
         }
 
         //predict ECEF position for same dataset
-        QVector3D sc_ecef = predictPosition(passes_start.addSecs(time));
-        positionECEF_x.append(DatedValue(sc_ecef.x(), passes_start.addSecs(time), -1));
-        positionECEF_y.append(DatedValue(sc_ecef.y(), passes_start.addSecs(time), -1));
-        positionECEF_z.append(DatedValue(sc_ecef.z(), passes_start.addSecs(time), -1));
+        QVector3D sc_ecef = predictPosition(passesStart.addSecs(time));
+        positionEcefX.append(DatedValue(sc_ecef.x(), passesStart.addSecs(time), -1));
+        positionEcefY.append(DatedValue(sc_ecef.y(), passesStart.addSecs(time), -1));
+        positionEcefZ.append(DatedValue(sc_ecef.z(), passesStart.addSecs(time), -1));
 
         //update progressbar
         progressBar.setStatus(time,et_end-et_start);
         progressBar.update();
 
-        if(!pass && angle > obs_min_elevation) {
+        if(!pass && angle > obsMinElevation) {
             pass = true;
-            pass_time = passes_start.addSecs(time);
+            pass_time = passesStart.addSecs(time);
         }
 
         if(pass && angle > max_elevation) {
             max_elevation = angle;
-            max_elevation_date = passes_start.addSecs(time);
+            max_elevation_date = passesStart.addSecs(time);
         }
 
-        if(pass && angle < obs_min_elevation) {
+        if(pass && angle < obsMinElevation) {
             pass = false;
 
-            max_elevations.append(DatedValue(max_elevation, max_elevation_date, -1));
+            maxElevations.append(DatedValue(max_elevation, max_elevation_date, -1));
             max_elevation = -180;
 
-            passes.append( DatedValue( pass_time.secsTo(passes_start.addSecs(time)), pass_time, -1) );
+            passes.append( DatedValue( pass_time.secsTo(passesStart.addSecs(time)), pass_time, -1) );
         }
 
 
-        if(angle - obs_min_elevation >= 0 ) {
+        if(angle - obsMinElevation >= 0 ) {
             time++;
         }else {
-            time = time + 1 + pow(-(angle - obs_min_elevation), 1.5);
+            time = time + 1 + pow(-(angle - obsMinElevation), 1.5);
         }
     }
 
@@ -192,7 +192,7 @@ void Spacecraft::predictPasses()
  * \param dt
  * \return bool is illuminated
  */
-bool Spacecraft::predictIlluminated(QDateTime dt)
+bool Spacecraft::predictIlluminated(const QDateTime &dt)
 {
     SpiceDouble et;
     getJ2000seconds(dt, et);
@@ -219,19 +219,19 @@ bool Spacecraft::predictIlluminated(QDateTime dt)
  * \brief SimController::writeCSV writes elevation, illumination and position calculated by the predict passes
  * routine into an .csv file
  */
-void Spacecraft::writeCSV_raw() {
+void Spacecraft::writeCsvRaw() {
     QList<DatedValueList*> dataLists;
     QList<QString> names;
 
-    names.append(positionECEF_x.getName() + "_" + positionECEF_x.getUnit());
-    names.append(positionECEF_y.getName() + "_" + positionECEF_y.getUnit());
-    names.append(positionECEF_z.getName() + "_" + positionECEF_z.getUnit());
+    names.append(positionEcefX.getName() + "_" + positionEcefX.getUnit());
+    names.append(positionEcefY.getName() + "_" + positionEcefY.getUnit());
+    names.append(positionEcefZ.getName() + "_" + positionEcefZ.getUnit());
     names.append(elevations.getName() + "_" + elevations.getUnit());
     names.append(illuminations.getName() + "_" + illuminations.getUnit());
 
-    dataLists.append(&positionECEF_x);
-    dataLists.append(&positionECEF_y);
-    dataLists.append(&positionECEF_z);
+    dataLists.append(&positionEcefX);
+    dataLists.append(&positionEcefY);
+    dataLists.append(&positionEcefZ);
     dataLists.append(&elevations);
     dataLists.append(&illuminations);
 
@@ -268,12 +268,12 @@ void Spacecraft::writeCSV_raw() {
  * \brief Spacecraft::writeCSV_passes writes the start time of the passes and their duration
  * into an .csv file
  */
-void Spacecraft::writeCSV_passes()
+void Spacecraft::writeCsvPasses()
 {
     QList<QString> names;
 
     names.append(passes.getName() + "_" + passes.getUnit());
-    names.append(max_elevations.getName() + "_" + max_elevations.getUnit());
+    names.append(maxElevations.getName() + "_" + maxElevations.getUnit());
 
     QFile file(CSV_PATH_PASSES);
     file.open(QIODevice::WriteOnly);
@@ -283,7 +283,7 @@ void Spacecraft::writeCSV_passes()
     stream << "start_date" << ",";
     stream << passes.getName() << "_" << passes.getUnit() << ",";
     stream << "max_elevation_date" << ",";
-    stream << max_elevations.getName() << "_" << max_elevations.getUnit() << ",";
+    stream << maxElevations.getName() << "_" << maxElevations.getUnit() << ",";
 
     stream << "\n";
     long l = passes.length();
@@ -295,8 +295,8 @@ void Spacecraft::writeCSV_passes()
         stream << passes.at(i).value << ",";
 
         //write elevation
-        stream << max_elevations.at(i).date.toString("yyyy.MM.dd hh:mm:ss") << ",";
-        stream << max_elevations.at(i).value << ",";
+        stream << maxElevations.at(i).date.toString("yyyy.MM.dd hh:mm:ss") << ",";
+        stream << maxElevations.at(i).value << ",";
 
         stream << "\n";
     }
@@ -311,10 +311,10 @@ void Spacecraft::writeCSV_passes()
  * \param inital if true it returns the initial value
  * \return x / km, y / km, z / km
  */
-QVector3D Spacecraft::getPositionECI(bool spacecraft)
+QVector3D Spacecraft::getPositionEci(const bool &i_spacecraft)
 {
-   if(spacecraft) return QVector3D(state_spacecraft[0],state_spacecraft[1],state_spacecraft[2]);
-   return QVector3D(state_marker[0],state_marker[1],state_marker[2]);
+   if(i_spacecraft) return QVector3D(stateSpacecraft[0],stateSpacecraft[1],stateSpacecraft[2]);
+   return QVector3D(stateMarker[0],stateMarker[1],stateMarker[2]);
 }
 
 
@@ -351,10 +351,10 @@ QVector3D Spacecraft::getObsPosition()
  * \brief Spacecraft::eci_to_LVLH_rot get quaternion to translate from ECI to the LVLH coord system
  * \return
  */
-QQuaternion Spacecraft::eci_to_LVLH_rot()
+QQuaternion Spacecraft::eciToLvlhRot()
 {
-    QVector3D pos = getPositionECI();
-    QVector3D velo = getVelocityECI();
+    QVector3D pos = getPositionEci();
+    QVector3D velo = getVelocityEci();
     QVector3D x = - pos.normalized();
     QVector3D z = QVector3D::crossProduct(-pos , velo).normalized();
     QVector3D y = QVector3D::crossProduct(z , x).normalized();
@@ -366,9 +366,9 @@ QQuaternion Spacecraft::eci_to_LVLH_rot()
  * \brief Spacecraft::getVelocity provides the velocity vector in the ECI system, based on the central difference dT = 1s
  * \return
  */
-QVector3D Spacecraft::getVelocityECI()
+QVector3D Spacecraft::getVelocityEci()
 {
-    return QVector3D(state_spacecraft[3],state_spacecraft[4],state_spacecraft[5]);
+    return QVector3D(stateSpacecraft[3],stateSpacecraft[4],stateSpacecraft[5]);
 }
 
 /*!
@@ -385,27 +385,27 @@ QQuaternion Spacecraft::getOrientation()
  * \param date
  * \param et
  */
-void Spacecraft::getJ2000seconds(QDateTime date, SpiceDouble &et)
+void Spacecraft::getJ2000seconds(const QDateTime &i_date, SpiceDouble &i_et)
 {
-    std::string s = "" + std::to_string(date.date().year());
+    std::string s = "" + std::to_string(i_date.date().year());
     s += " ";
-    s += std::to_string(date.date().month());
+    s += std::to_string(i_date.date().month());
     s += " ";
-    s += std::to_string(date.date().day());
+    s += std::to_string(i_date.date().day());
     s += " ";
 
-    s += std::to_string(date.time().hour());
+    s += std::to_string(i_date.time().hour());
     s += ":";
-    s += std::to_string(date.time().minute());
+    s += std::to_string(i_date.time().minute());
     s += ":";
-    s += std::to_string(date.time().second());
+    s += std::to_string(i_date.time().second());
     //s += " UTC";
 
     SpiceChar time [41];
 
     strcpy_s(time, s.c_str());
 
-    str2et_c(time, &et);
+    str2et_c(time, &i_et);
 }
 
 /*!
@@ -422,16 +422,16 @@ void Spacecraft::reinit(QDateTime i_datetime, double i_quat_w, double i_quat_x,
                         double i_quat_y , double i_quat_z,
                         double i_yaw_rate, double i_pitch_rate, double i_roll_rate)
 {
-    quat_w = i_quat_w;
-    quat_x = i_quat_x;
-    quat_y = i_quat_y;
-    quat_z = i_quat_z;
-    yaw_rate = i_yaw_rate;
-    pitch_rate = i_pitch_rate;
-    roll_rate = i_roll_rate;
+    quatW = i_quat_w;
+    quatX = i_quat_x;
+    quatY = i_quat_y;
+    quatZ = i_quat_z;
+    yawRate = i_yaw_rate;
+    pitchRate = i_pitch_rate;
+    rollRate = i_roll_rate;
 
-    getJ2000seconds(i_datetime, et_initial);
-    calc_spacecraft_date(i_datetime);
+    getJ2000seconds(i_datetime, etInitial);
+    calcSpacecraftDate(i_datetime);
 }
 
 

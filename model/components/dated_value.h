@@ -10,7 +10,7 @@ class DatedValue
 {
 
 public:
-    DatedValue(double i_value, QDateTime i_date, int i_observationIndex);
+    DatedValue(const double &i_value, const QDateTime &i_date, const int &i_observationIndex);
     QDateTime date;
     double value;
     int observationIndex;
@@ -23,7 +23,7 @@ class DatedValueList: public QList<DatedValue>
 
 public:
     //Constructor
-    DatedValueList(QString i_name, QString i_unit);
+    DatedValueList(const QString &i_name, const QString &i_unit);
 
     QString getName();
     QString getUnit();

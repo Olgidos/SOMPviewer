@@ -100,8 +100,8 @@ void TextProgressBar::setMessage(const QString &m)
     message = m;
 }
 
-void TextProgressBar::setStatus(qint64 val, qint64 max)
+void TextProgressBar::setStatus(const qint64 &i_val, const qint64 &i_max)
 {
-    value = val;
-    maximum = max;
+    value = i_val;
+    maximum = i_max;
 }

@@ -21,43 +21,51 @@ void Controller::init() {
 }
 
 /*!
- * \brief Controller::calculateNextOrbitMarker calculates the next Orbit Marker and saves its result in
+ * \brief Controller::calculateNextOrbitMarker calculates the next Orbit Marker
+ *  and saves its result in
  * orbitMarkerX
  * orbitMarkerY
  * orbitMarkerZ
  */
 void Controller::calculateNextOrbitMarker()
 {
-    model.spacecraft.calc_next_marker(orbit_marker_interval);
-    orbitMarkerX.push_back(model.spacecraft.getPositionECI(false).x());
-    orbitMarkerY.push_back(model.spacecraft.getPositionECI(false).y());
-    orbitMarkerZ.push_back(model.spacecraft.getPositionECI(false).z());
+    model.spacecraft.calcNextMarker(orbitMarkerInterval);
+    orbitMarkerX.push_back(model.spacecraft.getPositionEci(false).x());
+    orbitMarkerY.push_back(model.spacecraft.getPositionEci(false).y());
+    orbitMarkerZ.push_back(model.spacecraft.getPositionEci(false).z());
 }
 
 
 /*!
- * \brief Controller::setSatnogs called to update the SatNOGS data. Sets local bool satnogs_data_changed, therefore the controller thread can process this information. (Q_INVOKABLE) 
+ * \brief Controller::setSatnogs called to update the SatNOGS data. Sets local
+ *  bool satnogs_data_changed, therefore the controller thread can process
+ *  this information. (Q_INVOKABLE)
  * \param i_norad_id Satellite ID example: 45263
  * \param i_start observation start time example: 2020-05-20T00:00:00
  * \param i_end observation end time example: 2020-05-20T10:00:00
  * \param i_status observation status example: good
  */
-void Controller::setSatnogs(QString i_norad_id, QString i_start, QString i_end, QString i_status, bool i_delOldFiles)
+void Controller::setSatnogs(const QString &i_norad_id, const QString &i_start,
+                            const QString &i_end,
+                            const QString &i_status,
+                            const bool &i_delOldFiles)
 {
     QMutexLocker locker(&mutexVal);
-    model.norad_id = i_norad_id;
-    model.start_datetime = i_start;
-    model.end_datetime = i_end;
-    model.satnogs_status = i_status;
+    model.noradId = i_norad_id;
+    model.startDatetime = i_start;
+    model.endDatetime = i_end;
+    model.satnogsStatus = i_status;
     emit dataReseted();
 
-    model.importer.load(model.norad_id, model.start_datetime, model.end_datetime, model.satnogs_status, i_delOldFiles);
-    satnogs_data_changed = true;
+    model.importer.load(model.noradId, model.startDatetime, model.endDatetime,
+                        model.satnogsStatus, i_delOldFiles);
+    satnogsDataChanged = true;
 
 }
 
 /*!
- * \brief Controller::setOverflight Invoced by GUI to kick of the calculation of the passes. Since this is a quit calculation heavy duty,
+ * \brief Controller::setOverflight Invoced by GUI to kick of the calculation
+ *  of the passes. Since this is a quit calculation heavy duty,
  * it is performaed on the conroller thread.
  * \param i_lat expl: 10.123
  * \param i_lon eclp: 50.012
@@ -70,27 +78,38 @@ void Controller::setSatnogs(QString i_norad_id, QString i_start, QString i_end, 
  * \param timespan in days
  * \param i_elevation elevtion in degree
  */
-void Controller::setOverflight(QString i_lat, QString i_lon,
-                               QString i_start_year, QString i_start_month, QString i_start_day,
-                               QString i_start_hour, QString i_start_min, QString i_start_sec,
-                               QString timespan, QString i_elevation)
+void Controller::setOverflight(const QString &i_lat, const QString& i_lon,
+                               const QString &i_start_year,
+                               const QString &i_start_month,
+                               const QString &i_start_day,
+                               const QString &i_start_hour,
+                               const QString &i_start_min,
+                               const QString &i_start_sec,
+                               const QString &i_timespan,
+                               const QString &i_elevation)
 {
 
     QMutexLocker locker(&mutexVal);
 
-    model.spacecraft.passes_start = QDateTime(QDate(i_start_year.toInt(), i_start_month.toInt(), i_start_day.toInt()),
-                                QTime(i_start_hour.toInt(), i_start_min.toInt(), i_start_sec.toInt()), QTimeZone::utc()  );
-    model.spacecraft.passes_end = model.spacecraft.passes_start.addDays(timespan.toInt());
-    model.spacecraft.obs_lat = i_lat.toDouble();
-    model.spacecraft.obs_lon = i_lon.toDouble();
-    model.spacecraft.obs_min_elevation = i_elevation.toDouble();
-    calc_passes = true;
+    model.spacecraft.passesStart = QDateTime(QDate(i_start_year.toInt(),
+                                                   i_start_month.toInt(),
+                                                   i_start_day.toInt()),
+                                QTime(i_start_hour.toInt(),
+                                      i_start_min.toInt(),
+                                      i_start_sec.toInt()),
+                                             QTimeZone::utc());
+    model.spacecraft.passesEnd = model.spacecraft.passesStart
+            .addDays(i_timespan.toInt());
+    model.spacecraft.obsLat = i_lat.toDouble();
+    model.spacecraft.obsLon = i_lon.toDouble();
+    model.spacecraft.obsMinElevation = i_elevation.toDouble();
+    calcPasses = true;
 }
 
 void Controller::loadData()
 {
     //if available, load existing Satnogs data
-    satnogs_load_data = true;
+    satnogsLoadData = true;
     emit dataReseted();
 }
 
@@ -105,14 +124,14 @@ void Controller::run() {
     while(true){
         QThread::msleep(8);
 
-        if(satnogs_load_data) {
+        if(satnogsLoadData) {
             QMutexLocker locker(&mutexVal);
             emit calculating();
             model.startLoadingData();
-            satnogs_load_data = false;
+            satnogsLoadData = false;
         }
 
-        if(update_spacecraft) {
+        if(updateSpacecraft) {
             QMutexLocker locker(&mutexVal);
             if(model.observationList.length() != 0) {
 
@@ -151,76 +170,86 @@ void Controller::run() {
                 }
 
 
-                model.spacecraft.reinit(playblack_date, quat_w, quat_x, quat_y, quat_z,
-                                        yaw_rate, pitch_rate, roll_rate);
+                model.spacecraft.reinit(playblack_date, quat_w,
+                                        quat_x, quat_y, quat_z,
+                                        yaw_rate, pitch_rate,
+                                        roll_rate);
                 orbitMarkerX.clear();
                 orbitMarkerY.clear();
                 orbitMarkerZ.clear();
 
 
-                update_spacecraft = false;
-                calculate_orbitMarker = true;
+                updateSpacecraft = false;
+                calculateOrbitMarker = true;
                 emit spacecraftUpdated();
             } else {
-                update_spacecraft = false;
+                updateSpacecraft = false;
                 emit spacecraftUpdated();
             }
 
         }
 
-        if(calculate_orbitMarker) {
+        if(calculateOrbitMarker) {
             QMutexLocker locker(&mutexVal);
             calculateNextOrbitMarker();
 
-            if(orbitMarkerX.length() > orbit_marker_max) {
-                calculate_orbitMarker = false;
+            if(orbitMarkerX.length() > orbitMarkerMax) {
+                calculateOrbitMarker = false;
             }
 
             emit orbitMarkerUpdated();
         }
 
 
-        if(satnogs_data_changed) {
+        if(satnogsDataChanged) {
             QMutexLocker locker(&mutexVal);
-            satnogs_data_changed = false;
+            satnogsDataChanged = false;
             emit calculating();
         }
 
-        if(play && last_millis + delay < QDateTime::currentMSecsSinceEpoch() && model.observationList.size() > 0) {
+        if(play && last_millis + delay < QDateTime::currentMSecsSinceEpoch()
+                && model.observationList.size() > 0) {
             QMutexLocker locker(&mutexVal);
             if(last_millis != 0) {
-                playblack_date = playblack_date.addMSecs((QDateTime::currentMSecsSinceEpoch() - last_millis) * speed);
+                playblack_date = playblack_date.addMSecs(
+                            (QDateTime::currentMSecsSinceEpoch() - last_millis)
+                            * speed);
 
                 if(model.dataLists.size() != 0) {
                     //check if playback corresponds to a different transmission
-                    if(current_transmsission_id + 1 < model.dataLists.at(0)->size()) {
-                        if( playblack_date >= model.dataLists.at(0)->at(current_transmsission_id + 1).date) {
+                    if(current_transmsission_id + 1 < model.dataLists
+                            .at(0)->size()) {
+                        if( playblack_date >= model.dataLists.at(0)
+                                ->at(current_transmsission_id + 1).date) {
                             current_transmsission_id += 1;
-                            current_observation_id = model.observationList.getObsIndex(model.dataLists.at(0)
-                                                            ->at(current_transmsission_id).observationIndex);
+                            current_observation_id = model.observationList
+                                    .getObsIndex(model.dataLists.at(0)
+                                    ->at(current_transmsission_id).observationIndex);
                             emit transmissionUpdated();
                             emit observationUpdated();
                         }
                     }
 
                     if(current_transmsission_id - 1 > - 1 ) {
-                        if(playblack_date < model.dataLists.at(0)->at(current_transmsission_id ).date)  {
+                        if(playblack_date < model.dataLists.at(0)
+                                ->at(current_transmsission_id ).date)  {
                             current_transmsission_id -= 1;
-                            current_observation_id = model.observationList.getObsIndex(model.dataLists.at(0)
-                                                            ->at(current_transmsission_id).observationIndex);
+                            current_observation_id = model.observationList
+                                    .getObsIndex(model.dataLists.at(0)
+                                    ->at(current_transmsission_id).observationIndex);
                             emit transmissionUpdated();
                             emit observationUpdated();
                         }
                     }
                 }
 
-                model.spacecraft.calc_spacecraft_date(playblack_date);
+                model.spacecraft.calcSpacecraftDate(playblack_date);
 
                 orbitMarkerX.clear();
                 orbitMarkerY.clear();
                 orbitMarkerZ.clear();
 
-                calculate_orbitMarker = true;
+                calculateOrbitMarker = true;
 
                 emit dateUpdated();
                 emit spacecraftUpdated();
@@ -229,14 +258,15 @@ void Controller::run() {
             last_millis = QDateTime::currentMSecsSinceEpoch();
         }
 
-        if(calc_passes) {
+        if(calcPasses) {
             QMutexLocker locker(&mutexVal);
             emit calculating();
             model.spacecraft.predictPasses();
-            model.spacecraft.writeCSV_raw();
-            model.spacecraft.writeCSV_passes();
-            qDebug() << "CSV writing finished: ./output/spacecraft.csv & ./output/spacecraft_passes.csv";
-            calc_passes = false;
+            model.spacecraft.writeCsvRaw();
+            model.spacecraft.writeCsvPasses();
+            qDebug() << "CSV writing finished: ./output/spacecraft.csv " <<
+                        "& ./output/spacecraft_passes.csv";
+            calcPasses = false;
             emit passesCalculated();
             emit calculatingFinished();
         }
@@ -245,11 +275,12 @@ void Controller::run() {
 }
 
 /*!
- * \brief Controller::handleExternalCalculationFinished SLOT to passthrough external calculation finished signals.
+ * \brief Controller::handleExternalCalculationFinished SLOT to passthrough
+ *  external calculation finished signals.
  */
 void Controller::handleModelImportFinished()
 {
-    update_spacecraft = true;
+    updateSpacecraft = true;
 
     playblack_date = QDateTime( QDate(2021, 1, 1), QTime(0, 0, 0), QTimeZone::utc() );
     current_transmsission_id = -1;
@@ -265,7 +296,8 @@ void Controller::handleModelImportFinished()
     if(model.dataLists.size() > 0) {
         if(model.dataLists.at(0)->size() > 0){
             current_transmsission_id = 0;
-            playblack_date = model.dataLists.at(0)->at(current_transmsission_id).date;
+            playblack_date = model.dataLists.at(0)
+                    ->at(current_transmsission_id).date;
         }
     }
 
@@ -278,7 +310,8 @@ void Controller::handleModelImportFinished()
 }
 
 /*!
- * \brief Controller::handleExternalCalculationFinished SLOT to passthrough external calculation failed signals.
+ * \brief Controller::handleExternalCalculationFinished SLOT to passthrough
+ *  external calculation failed signals.
  */
 void Controller::handleModelImportFailed()
 {
@@ -289,7 +322,8 @@ void Controller::handleModelImportFailed()
 
 
 /*!
- * \brief Controller::getListNames Function which is Q_INVOKABLE so the Viewer can obtain information about all available DatedValueLists
+ * \brief Controller::getListNames Function which is Q_INVOKABLE so the
+ *  Viewer can obtain information about all available DatedValueLists
  * \return List of Names of all available DatedValueLists
  */
 QList<QString> Controller::getListNames()
@@ -316,31 +350,36 @@ QVariantList Controller::getListPasses()
     for(int i = 0; i < model.spacecraft.passes.size(); i++) {
         return_list.push_back(model.spacecraft.passes.at(i).date.toString());
         return_list.push_back(model.spacecraft.passes.at(i).value);
-        return_list.push_back(model.spacecraft.max_elevations.at(i).value);
+        return_list.push_back(model.spacecraft.maxElevations.at(i).value);
     }
     return return_list;
 }
 
 
 /*!
- * \brief Controller::updateChart Method to update chart, which can be called by the Viewer (Q_INVOKABLE). This external update method
+ * \brief Controller::updateChart Method to update chart, which can be called
+ *  by the Viewer (Q_INVOKABLE). This external update method
  * improves the performance of the chart.
  * \param series Pointer to the series, which it will update with the current values
  * \param axisX Pointer to the x-Axis, which it will update to accommodate for the new size
  * \param axisY Pointer to the y-Axis, which it will update to accommodate for the new size
  */
-void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axisX, QAbstractAxis *axisY, bool zoom)
+void Controller::updateChart(const int &i_id,
+                             QAbstractSeries *i_series,
+                             QAbstractAxis *i_axisX,
+                             QAbstractAxis *i_axisY,
+                             const bool &i_zoom)
 {
     QMutexLocker locker(&mutexVal);
     DatedValueList *list;
 
-    list = model.dataLists[id];
+    list = model.dataLists[i_id];
 
 
-    if (series && axisX && axisY) {
-        QLineSeries *lineSeries = static_cast<QLineSeries *>(series);
-        QDateTimeAxis *valAxisX = static_cast<QDateTimeAxis *>(axisX);
-        QValueAxis *valAxisY = static_cast<QValueAxis *>(axisY);
+    if (i_series && i_axisX && i_axisY) {
+        QLineSeries *lineSeries = static_cast<QLineSeries *>(i_series);
+        QDateTimeAxis *valAxisX = static_cast<QDateTimeAxis *>(i_axisX);
+        QValueAxis *valAxisY = static_cast<QValueAxis *>(i_axisY);
 
 
         if(list->isEmpty()) return;
@@ -349,7 +388,8 @@ void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axi
         double valAxisY_min = DBL_MAX;
 
         QDateTime valAxisX_max;
-        QDateTime valAxisX_min = QDateTime::fromMSecsSinceEpoch( pow(2,57), QTimeZone::utc() );
+        QDateTime valAxisX_min =
+                QDateTime::fromMSecsSinceEpoch( pow(2,57), QTimeZone::utc() );
 
         lineSeries->clear();
 
@@ -362,11 +402,15 @@ void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axi
         points.reserve(list->size());
 
         for(long i = 0; i < list->size(); i++) {
-            points.append(QPointF(list->at(i).date.toLocalTime().toMSecsSinceEpoch() - offset, list->at(i).value));
+            points.append(QPointF(list->at(i).date.toLocalTime()
+                                  .toMSecsSinceEpoch() - offset, list->at(i).value));
 
-            if(list->at(i).value > valAxisY_max) valAxisY_max = list->at(i).value * 1.2;
-            if(list->at(i).value < valAxisY_min && list->at(i).value >= 0) valAxisY_min = list->at(i).value * 0.8;
-            if(list->at(i).value < valAxisY_min && list->at(i).value < 0) valAxisY_min = list->at(i).value * 1.2;
+            if(list->at(i).value > valAxisY_max)
+                valAxisY_max = list->at(i).value * 1.2;
+            if(list->at(i).value < valAxisY_min && list->at(i).value >= 0)
+                valAxisY_min = list->at(i).value * 0.8;
+            if(list->at(i).value < valAxisY_min && list->at(i).value < 0)
+                valAxisY_min = list->at(i).value * 1.2;
 
             progressBar.setStatus(i,list->size());
             progressBar.update();
@@ -393,14 +437,20 @@ void Controller::updateChart(int id, QAbstractSeries *series, QAbstractAxis *axi
 
 
 /*!
- * \brief Controller::updateChart_overflight similar to updateChart(), but optimized for >5000 data, which is easely generated by the spacecraft pass calculation
+ * \brief Controller::updateChart_overflight similar to updateChart(),
+ *  but optimized for >5000 data, which is easely generated by the
+ * spacecraft pass calculation
  * CHANGE (CAN BE PROPABLY BE COMBINED WITH OTHER CHART METHOD)
  * \param series
  * \param axisX
  * \param axisY
- * \param precalc first call via controller thread to prepare graph data. second call precalc = false asign calculated data to GUI.
+ * \param precalc first call via controller thread to prepare graph data.
+ * second call precalc = false asign calculated data to GUI.
  */
-void Controller::updateChart_overflight(QAbstractSeries *series, QAbstractSeries *series2, QAbstractAxis *axisX, QAbstractAxis *axisY)
+void Controller::updateChart_overflight(QAbstractSeries *series,
+                                        QAbstractSeries *series2,
+                                        QAbstractAxis *axisX,
+                                        QAbstractAxis *axisY)
 {
     QMutexLocker locker(&mutexVal);
 
@@ -424,11 +474,13 @@ void Controller::updateChart_overflight(QAbstractSeries *series, QAbstractSeries
         double valAxisY_min = DBL_MAX;
 
         QDateTime valAxisX_max;
-        QDateTime valAxisX_min = QDateTime::fromMSecsSinceEpoch( pow(2,57), QTimeZone::utc() );
+        QDateTime valAxisX_min =
+                QDateTime::fromMSecsSinceEpoch( pow(2,57), QTimeZone::utc() );
 
         lineSeries->clear();
         int offset = QDateTime::currentDateTime().offsetFromUtc()*1000;
-        progressBar.setMessage("preparing graph " + list->getName() + " "+ list2->getName());
+        progressBar
+                .setMessage("preparing graph " + list->getName() + " "+ list2->getName());
 
         QVector<QPointF> points1;
         QVector<QPointF> points2;
@@ -436,11 +488,15 @@ void Controller::updateChart_overflight(QAbstractSeries *series, QAbstractSeries
         points2.reserve(list->size());
 
         for(long i = 0; i < list->size(); i++) {
-            points1.append(QPointF(list->at(i).date.toLocalTime().toMSecsSinceEpoch() - offset, list->at(i).value));
-            points2.append(QPointF(list2->at(i).date.toLocalTime().toMSecsSinceEpoch() - offset, list2->at(i).value));
+            points1.append(QPointF(list->at(i).date.toLocalTime()
+                                   .toMSecsSinceEpoch() - offset, list->at(i).value));
+            points2.append(QPointF(list2->at(i).date.toLocalTime()
+                                   .toMSecsSinceEpoch() - offset, list2->at(i).value));
             if(list->at(i).value > valAxisY_max)valAxisY_max = list->at(i).value * 1.2;
-            if(list->at(i).value < valAxisY_min && list->at(i).value > 0) valAxisY_min = list->at(i).value * 0.8;
-            if(list->at(i).value < valAxisY_min && list->at(i).value < 0) valAxisY_min = list->at(i).value * 1.2;
+            if(list->at(i).value < valAxisY_min && list->at(i).value > 0)
+                valAxisY_min = list->at(i).value * 0.8;
+            if(list->at(i).value < valAxisY_min && list->at(i).value < 0)
+                valAxisY_min = list->at(i).value * 1.2;
             progressBar.setStatus(i,list->size());
             progressBar.update();
         }
@@ -472,15 +528,16 @@ void Controller::updateChart_overflight(QAbstractSeries *series, QAbstractSeries
  * \param id
  * \return Unit as QString
  */
-QString Controller::getUnit(int id)
+QString Controller::getUnit(const int &i_id)
 {
     QMutexLocker locker(&mutexVal);
-    return model.dataLists[id]->getUnit();
+    return model.dataLists[i_id]->getUnit();
 }
 
 
 /*!
- * \brief Controller::getObservationData Returns a QVariantList, which contains a full data set of an observation
+ * \brief Controller::getObservationData Returns a QVariantList, which contains
+ *  a full data set of an observation
  * \return QVariantList
  */
 QVariantList Controller::getObservationData()
@@ -490,36 +547,50 @@ QVariantList Controller::getObservationData()
 
     if(current_observation_id != -1 && model.observationList.length() != 0) {
     //0
-    gui_observation_buffer.append(  model.observationList[current_observation_id].start.toString() );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].start.toString() );
     //1
-    gui_observation_buffer.append(  model.observationList[current_observation_id].end.toString() );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].end.toString() );
     //2
-    gui_observation_buffer.append(  model.observationList[current_observation_id].tle1 + "\n" +
-                                    model.observationList[current_observation_id].tle2);
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].tle1 + "\n" +
+                model.observationList[current_observation_id].tle2);
 
     //3
-    gui_observation_buffer.append( model.observationList[current_observation_id].max_altitude );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].max_altitude );
     //4
-    gui_observation_buffer.append( model.observationList[current_observation_id].rise_azimuth );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].rise_azimuth );
     //5
-    gui_observation_buffer.append( model.observationList[current_observation_id].set_azimuth );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].set_azimuth );
     //6
-    gui_observation_buffer.append( model.observationList[current_observation_id].station_lat );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].station_lat );
     //7
-    gui_observation_buffer.append( model.observationList[current_observation_id].station_lng );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].station_lng );
 
     //8
-    gui_observation_buffer.append( model.observationList[current_observation_id].station_name );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].station_name );
     //9
-    gui_observation_buffer.append( model.observationList[current_observation_id].status );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].status );
     //10
-    gui_observation_buffer.append( model.observationList[current_observation_id].tle0 );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].tle0 );
     //11
-    gui_observation_buffer.append( model.observationList[current_observation_id].transmitter_description );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].transmitter_description );
     //12
-    gui_observation_buffer.append( model.observationList[current_observation_id].id );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].id );
     //13
-    gui_observation_buffer.append( model.observationList[current_observation_id].waterfall );
+    gui_observation_buffer.append(
+                model.observationList[current_observation_id].waterfall );
 
     } else {
         for (int i = 0; i < 14; i++) {
@@ -531,7 +602,8 @@ QVariantList Controller::getObservationData()
 
 /*!
  * \brief Controller::getSpacecraftData provides spacecraft data to GUI
- * \return ECI height in km [0]; 3d ECI position vector in km [1,2,3]; Oriantation quaternion [4,5,6,7]
+ * \return ECI height in km [0]; 3d ECI position
+ *  vector in km [1,2,3]; Oriantation quaternion [4,5,6,7]
  */
 QVariantList Controller::getSpacecraftData()
 {
@@ -540,9 +612,9 @@ QVariantList Controller::getSpacecraftData()
 
     QQuaternion quat = model.spacecraft.getOrientation();
     gui_spacecraft_buffer.append( 0 );
-    gui_spacecraft_buffer.append( model.spacecraft.getPositionECI( true ).x() );
-    gui_spacecraft_buffer.append( model.spacecraft.getPositionECI( true ).y() );
-    gui_spacecraft_buffer.append( model.spacecraft.getPositionECI( true ).z() );
+    gui_spacecraft_buffer.append( model.spacecraft.getPositionEci( true ).x() );
+    gui_spacecraft_buffer.append( model.spacecraft.getPositionEci( true ).y() );
+    gui_spacecraft_buffer.append( model.spacecraft.getPositionEci( true ).z() );
     gui_spacecraft_buffer.append( quat.x());
     gui_spacecraft_buffer.append( quat.y());
     gui_spacecraft_buffer.append( quat.z());
@@ -560,7 +632,7 @@ QVariantList Controller::getEarthEphemerides()
     QMutexLocker locker(&mutexVal);
     QVariantList gui_buffer;
 
-    Vector3D d3 = model.getSunEphermis(playblack_date);
+    Vector3D d3 = model.spaceModel.getSunEphemeris(playblack_date);
     gui_buffer.append( d3.x );
     gui_buffer.append( d3.y );
     gui_buffer.append( d3.z );
@@ -569,7 +641,8 @@ QVariantList Controller::getEarthEphemerides()
 }
 
 /*!
- * \brief Controller::getTransmissionData Returns a QVariantList, which contains a full data set of an transmission
+ * \brief Controller::getTransmissionData Returns a QVariantList,
+ *  which contains a full data set of an transmission
  * \return
  */
 QVariantList Controller::getTransmissionData()
@@ -577,14 +650,16 @@ QVariantList Controller::getTransmissionData()
     QMutexLocker locker(&mutexVal);
     QVariantList gui_observation_buffer;
 
-    if(current_transmsission_id != -1 && model.dataLists.length() != 0 && model.dataLists.at(0)->length() != 0) {
+    if(current_transmsission_id != -1 && model.dataLists.length()
+            != 0 && model.dataLists.at(0)->length() != 0) {
 
     //0
     gui_observation_buffer.append( (int) current_transmsission_id + 1 );
     //1
     gui_observation_buffer.append(  model.dataLists.at(0)->length() );
     //2
-    gui_observation_buffer.append(  model.dataLists.at(0)->at(current_transmsission_id).date.toString() );
+    gui_observation_buffer.append(  model.dataLists.at(0)
+                           ->at(current_transmsission_id).date.toString() );
 
 
     } else {
@@ -622,7 +697,8 @@ QVariantList Controller::getPlaybackDate()
 }
 
 /*!
- * \brief Controller::getEarthRotationJ2000 returns the Quaternion transformation for Earth rel to J2000
+ * \brief Controller::getEarthRotationJ2000 returns
+ *  the Quaternion transformation for Earth rel to J2000
  * \return
  */
 QVariantList Controller::getEarthRotationJ2000()
@@ -630,7 +706,7 @@ QVariantList Controller::getEarthRotationJ2000()
     QMutexLocker locker(&mutexVal);
     QVariantList gui_buffer;
 
-    QQuaternion quat = model.getEarthRotation(playblack_date);
+    QQuaternion quat = model.spaceModel.getEarthRotation(playblack_date);
     gui_buffer.append(quat.x());
     gui_buffer.append(quat.y());
     gui_buffer.append(quat.z());
@@ -639,7 +715,8 @@ QVariantList Controller::getEarthRotationJ2000()
 }
 
 /*!
- * \brief Controller::getLVLHquaternion returns the ECI to LVLH quaternion to the GUI
+ * \brief Controller::getLVLHquaternion returns the ECI
+ *  to LVLH quaternion to the GUI
  * \return
  */
 QVariantList Controller::getLVLHquaternion()
@@ -647,7 +724,7 @@ QVariantList Controller::getLVLHquaternion()
     QMutexLocker locker(&mutexVal);
     QVariantList gui_buffer;
 
-    QQuaternion quat = model.spacecraft.eci_to_LVLH_rot();
+    QQuaternion quat = model.spacecraft.eciToLvlhRot();
     gui_buffer.append(quat.x());
     gui_buffer.append(quat.y());
     gui_buffer.append(quat.z());
@@ -656,7 +733,8 @@ QVariantList Controller::getLVLHquaternion()
 }
 
 /*!
- * \brief Controller::nextObservation switches current active observation to the next.
+ * \brief Controller::nextObservation switches current
+ *  active observation to the next.
  */
 void Controller::nextTransmission()
 {
@@ -671,7 +749,8 @@ void Controller::nextTransmission()
 }
 
 /*!
- * \brief Controller::previousObservation switches current active observation to the previous.
+ * \brief Controller::previousObservation switches
+ *  current active observation to the previous.
  */
 void Controller::previousTransmission()
 {
@@ -687,17 +766,21 @@ void Controller::previousTransmission()
 
 
 /*!
- * \brief Controller::changeTransmission private helper function to combine functionality of next and previous transmission
+ * \brief Controller::changeTransmission private helper function to
+ *  combine functionality of next and previous transmission
  */
-void Controller::changeTransmission( bool changeDate) {
-    int newObservation = model.observationList.getObsIndex(model.dataLists.at(0)->at(current_transmsission_id).observationIndex);
+void Controller::changeTransmission(const bool &i_changeDate) {
+    int newObservation = model.observationList
+            .getObsIndex(model.dataLists.at(0)
+                         ->at(current_transmsission_id).observationIndex);
     if(current_observation_id != newObservation ){
         current_observation_id = newObservation;
         emit observationUpdated();
     }
 
-    if(changeDate) playblack_date = model.dataLists.at(0)->at(current_transmsission_id).date;
-    update_spacecraft = true;
+    if(i_changeDate) playblack_date = model.dataLists.at(0)
+            ->at(current_transmsission_id).date;
+    updateSpacecraft = true;
     emit transmissionUpdated();
     emit dateUpdated();
 }
@@ -705,7 +788,7 @@ void Controller::changeTransmission( bool changeDate) {
 /*!
  * \brief Controller::play_pauseObservation play pause playpack
  */
-void Controller::set_play_pause(bool i_play)
+void Controller::set_play_pause(const bool &i_play)
 {
     QMutexLocker locker(&mutexVal);
     play = i_play;
@@ -721,11 +804,18 @@ void Controller::set_play_pause(bool i_play)
  * \param minute
  * \param second
  */
-void Controller::set_date(int day, int month, int year, int hour, int minute, int second)
+void Controller::set_date(const int &i_day,
+                          const int &i_month,
+                          const int &i_year,
+                          const int &i_hour,
+                          const int &i_minute,
+                          const int &i_second)
 {
     QMutexLocker locker(&mutexVal);
 
-    playblack_date = QDateTime(QDate(year,month,day), QTime(hour, minute, second), QTimeZone::utc());
+    playblack_date = QDateTime(QDate(i_year,i_month,i_day),
+                               QTime(i_hour, i_minute, i_second),
+                               QTimeZone::utc());
 
     if(!playblack_date.isValid()) {
         changeTransmission();
@@ -734,7 +824,7 @@ void Controller::set_date(int day, int month, int year, int hour, int minute, in
 
     //In case there is no transmission data loaded
     if(model.dataLists.size() == 0 ) {
-        update_spacecraft = true;
+        updateSpacecraft = true;
         emit dateUpdated();
         return;
     }
@@ -748,7 +838,8 @@ void Controller::set_date(int day, int month, int year, int hour, int minute, in
             i = model.dataLists.at(0)->size();
         }
     }
-    if(current_transmsission_id == -2) current_transmsission_id = model.dataLists.at(0)->size()-1;
+    if(current_transmsission_id == -2)
+        current_transmsission_id = model.dataLists.at(0)->size()-1;
 
     changeTransmission(false);
 }
@@ -763,7 +854,7 @@ void Controller::reset_date()
     if(model.dataLists.size() == 0) {
         playblack_date = model.observationList.at(0).start;
         emit dateUpdated();
-        update_spacecraft = true;
+        updateSpacecraft = true;
         return;
     }
     changeTransmission();
@@ -773,7 +864,7 @@ void Controller::reset_date()
  * \brief Controller::set_speed GUI sets playback speed
  * \param i_speed
  */
-void Controller::set_speed(double i_speed)
+void Controller::set_speed(const double &i_speed)
 {
     QMutexLocker locker(&mutexVal);
     speed = i_speed;
@@ -818,16 +909,17 @@ QVariantList Controller::getOrbitMarkerZ()
  */
 int Controller::getOrbitMarkerIntervall()
 {
-    return orbit_marker_interval;
+    return orbitMarkerInterval;
 }
 
 /*!
- * \brief Controller::setOrbitMarkerIntervall allowes the GUI to set OrbitMarkerIntervall
+ * \brief Controller::setOrbitMarkerIntervall
+ *  allowes the GUI to set OrbitMarkerIntervall
  * \param interval
  */
-void Controller::setOrbitMarkerIntervall(int interval)
+void Controller::setOrbitMarkerIntervall(const int &i_interval)
 {
-    orbit_marker_interval = interval;
+    orbitMarkerInterval = i_interval;
 }
 
 /*!
@@ -836,15 +928,15 @@ void Controller::setOrbitMarkerIntervall(int interval)
  */
 int Controller::getOrbitMarkerMax()
 {
-    return orbit_marker_max;
+    return orbitMarkerMax;
 }
 
 /*!
  * \brief Controller::setOrbitMarkerMax allowes the GUI to set orbit_marker_max
  * \param interval
  */
-void Controller::setOrbitMarkerMax(int max)
+void Controller::setOrbitMarkerMax(const int &i_max)
 {
-    orbit_marker_max = max;
+    orbitMarkerMax = i_max;
 }
 

@@ -55,25 +55,25 @@
 #include <QtCore>
 #include <QString>
 
-#include "text_progressbar.h"
+#include "model/components/text_progressbar.h"
 
 class DownloadManager: public QObject
 {
     Q_OBJECT
 
 public:
-    explicit DownloadManager(QObject *parent = nullptr, QString i_path = "");
+    explicit DownloadManager(QObject *i_parent = nullptr, const QString &i_path = "");
 
-    void append(const QUrl &url);
-    void append(const QStringList &urls);
-    static QString saveFileName(const QUrl &url);
+    void append(const QUrl &i_url);
+    void append(const QStringList &i_urls);
+    static QString saveFileName(const QUrl &i_url);
 
 signals:
     void finished();
 
 private slots:
     void startNextDownload();
-    void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+    void downloadProgress(const qint64 i_bytesReceived, const qint64 i_bytesTotal);
     void downloadFinished();
     void downloadReadyRead();
 

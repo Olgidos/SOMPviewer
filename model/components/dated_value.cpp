@@ -5,7 +5,7 @@
  * \param i_value
  * \param i_date
  */
-DatedValue::DatedValue(double i_value, QDateTime i_date, int i_observationIndex)
+DatedValue::DatedValue(const double &i_value, const QDateTime &i_date, const int &i_observationIndex)
     : date(i_date),
       value(i_value),
       observationIndex(i_observationIndex)
@@ -17,7 +17,7 @@ DatedValue::DatedValue(double i_value, QDateTime i_date, int i_observationIndex)
  * \param i_name name of the contained dated values
  * \param i_unit unit of the contained dated values
  */
-DatedValueList::DatedValueList(QString i_name, QString i_unit)
+DatedValueList::DatedValueList(const QString &i_name, const QString &i_unit)
       :name(i_name),
       unit(i_unit)
 {

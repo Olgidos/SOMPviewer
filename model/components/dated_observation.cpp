@@ -5,7 +5,7 @@
  * \param i_value
  * \param i_date
  */
-Dated_observation::Dated_observation(QString i_tle1, QString i_tle2, QDateTime i_start)
+Dated_observation::Dated_observation(const QString &i_tle1, const QString &i_tle2, const QDateTime &i_start)
     : start(i_start),
       tle1(i_tle1),
       tle2(i_tle2)
@@ -28,10 +28,10 @@ void DatedObservationList::sort()
     std::sort(begin(), end(), dateTimeComp);
 }
 
-int DatedObservationList::getObsIndex(int id)
+int DatedObservationList::getObsIndex(const int &i_id)
 {
     for(int i = 0; i < length(); i++) {
-        if(id == at(i).id) return i;
+        if(i_id == at(i).id) return i;
     }
     return -1;
 }
