@@ -27,10 +27,10 @@ public:
 
 
 
-class Space_model
+class SpaceModel
 {
 public:
-    Space_model();
+    SpaceModel();
     Vector3D getSunEphemeris(const QDateTime &i_date);
     QQuaternion getEarthRotation(const QDateTime &i_date);
 

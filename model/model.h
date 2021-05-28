@@ -41,7 +41,7 @@ public:
     //Var
     SatnogsLoader importer;
     Spacecraft spacecraft;
-    Space_model spaceModel;
+    SpaceModel spaceModel;
 
     //Satnogs Settings data
     QString noradId;

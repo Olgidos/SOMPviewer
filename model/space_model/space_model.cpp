@@ -1,6 +1,6 @@
 #include "space_model.h"
 
-Space_model::Space_model()
+SpaceModel::SpaceModel()
 {
 
 }
@@ -11,7 +11,7 @@ Space_model::Space_model()
  * \param date
  * \return
  */
-Vector3D Space_model::getSunEphemeris(const QDateTime &i_date)
+Vector3D SpaceModel::getSunEphemeris(const QDateTime &i_date)
 {
     SpiceDouble et;
     getJ2000seconds(i_date, et);
@@ -27,7 +27,7 @@ Vector3D Space_model::getSunEphemeris(const QDateTime &i_date)
  * \param date
  * \return
  */
-QQuaternion Space_model::getEarthRotation(const QDateTime &i_date)
+QQuaternion SpaceModel::getEarthRotation(const QDateTime &i_date)
 {
     SpiceDouble et;
     getJ2000seconds(i_date, et);
@@ -45,7 +45,7 @@ QQuaternion Space_model::getEarthRotation(const QDateTime &i_date)
  * \param date
  * \param et
  */
-void Space_model::getJ2000seconds(const QDateTime &i_date, SpiceDouble &i_et)
+void SpaceModel::getJ2000seconds(const QDateTime &i_date, SpiceDouble &i_et)
 {
     std::string s = "" + std::to_string(i_date.date().year());
     s += " ";

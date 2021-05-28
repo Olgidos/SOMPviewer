@@ -1,6 +1,6 @@
 #include <windows.h>
 
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\TheOlg\\Desktop\\svn\\SOMPviewer\\resource\\images\\icon.ico"
+IDI_ICON1	ICON	DISCARDABLE	"D:\\svn\\SOMPviewer\\resource\\images\\icon.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

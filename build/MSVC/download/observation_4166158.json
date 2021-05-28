@@ -1,0 +1,61 @@
+{
+    "archive_url": null,
+    "archived": false,
+    "client_metadata": "{\"radio\": {\"name\": \"gr-satnogs\", \"version\": \"v2.2-compat-xxx-v2.2.0.0\", \"parameters\": {\"soapy-rx-device\": \"driver=rtlsdr\", \"samp-rate-rx\": \"1.024e6\", \"rx-freq\": \"435600000\", \"file-path\": \"/tmp/.satnogs/data/receiving_satnogs_4166158_2021-05-26T09-27-20.out\", \"waterfall-file-path\": \"/tmp/.satnogs/data/receiving_waterfall_4166158_2021-05-26T09-27-20.dat\", \"decoded-data-file-path\": \"/tmp/.satnogs/data/data_4166158\", \"doppler-correction-per-sec\": null, \"lo-offset\": null, \"ppm\": null, \"rigctl-port\": \"4532\", \"gain-mode\": \"Overall\", \"gain\": \"49.6\", \"antenna\": \"RX\", \"dev-args\": null, \"stream-args\": null, \"tune-args\": null, \"other-settings\": null, \"dc-removal\": null, \"bb-freq\": null, \"bw\": null, \"enable-iq-dump\": \"0\", \"iq-file-path\": null, \"udp-dump-host\": null, \"udp-dump-port\": 57356, \"wpm\": null, \"baudrate\": \"9600\", \"framing\": \"ax25\"}}, \"latitude\": 53.91, \"longitude\": 27.09, \"elevation\": 280, \"frequency\": 435600000}",
+    "client_version": "1.5",
+    "demoddata": [
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/data_4166158_2021-05-26T09-28-54"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/data_4166158_2021-05-26T09-27-53"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/data_4166158_2021-05-26T09-30-54"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/data_4166158_2021-05-26T09-29-55"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/data_4166158_2021-05-26T09-29-54"
+        }
+    ],
+    "end": "2021-05-26T09:31:49Z",
+    "ground_station": 2029,
+    "id": 4166158,
+    "max_altitude": 20,
+    "norad_cat_id": 47445,
+    "payload": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/satnogs_4166158_2021-05-26T09-27-20.ogg",
+    "rise_azimuth": 321,
+    "set_azimuth": 239,
+    "start": "2021-05-26T09:27:20Z",
+    "station_alt": 280,
+    "station_lat": 53.91,
+    "station_lng": 27.09,
+    "station_name": "EU1AEM",
+    "status": "good",
+    "tle0": "SOMP2B",
+    "tle1": "1 47445U 21006AJ  21145.90920210  .00001098  00000-0  65902-4 0  9993",
+    "tle2": "2 47445  97.4858 207.4610 0012605 172.2670 187.8758 15.12937539 18644",
+    "transmitter": "3Sw2ibwCaQVE529QkboAqU",
+    "transmitter_baud": 9600,
+    "transmitter_description": "Mode U - 9k6 GMSK",
+    "transmitter_downlink_drift": null,
+    "transmitter_downlink_high": null,
+    "transmitter_downlink_low": 435600000,
+    "transmitter_invert": false,
+    "transmitter_mode": "GMSK",
+    "transmitter_type": "Transmitter",
+    "transmitter_updated": "2021-01-23T13:40:56.162886Z",
+    "transmitter_uplink_drift": null,
+    "transmitter_uplink_high": null,
+    "transmitter_uplink_low": null,
+    "transmitter_uuid": "3Sw2ibwCaQVE529QkboAqU",
+    "vetted_datetime": null,
+    "vetted_status": "good",
+    "vetted_user": null,
+    "waterfall": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166158/waterfall_4166158_2021-05-26T09-27-20.png",
+    "waterfall_status": "unknown",
+    "waterfall_status_datetime": null,
+    "waterfall_status_user": null
+}

@@ -1,0 +1,139 @@
+{
+    "archive_url": null,
+    "archived": false,
+    "client_metadata": "{\"radio\": {\"name\": \"gr-satnogs\", \"version\": \"v2.2-compat-xxx-v2.2.0.0\", \"parameters\": {\"soapy-rx-device\": \"driver=rtlsdr\", \"samp-rate-rx\": \"1.024e6\", \"rx-freq\": \"435600000\", \"file-path\": \"/tmp/.satnogs/data/receiving_satnogs_4166215_2021-05-27T09-17-25.out\", \"waterfall-file-path\": \"/tmp/.satnogs/data/receiving_waterfall_4166215_2021-05-27T09-17-25.dat\", \"decoded-data-file-path\": \"/tmp/.satnogs/data/data_4166215\", \"doppler-correction-per-sec\": null, \"lo-offset\": null, \"ppm\": null, \"rigctl-port\": \"4532\", \"gain-mode\": \"Overall\", \"gain\": \"49.6\", \"antenna\": \"RX\", \"dev-args\": null, \"stream-args\": null, \"tune-args\": null, \"other-settings\": null, \"dc-removal\": null, \"bb-freq\": null, \"bw\": null, \"enable-iq-dump\": \"0\", \"iq-file-path\": null, \"udp-dump-host\": null, \"udp-dump-port\": 57356, \"wpm\": null, \"baudrate\": \"9600\", \"framing\": \"ax25\"}}, \"latitude\": 53.91, \"longitude\": 27.09, \"elevation\": 280, \"frequency\": 435600000}",
+    "client_version": "1.5",
+    "demoddata": [
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-19-13_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-19-13"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-19-10"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-55"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-52"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-47"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-42"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-16_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-16"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-15_3"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-15_2"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-15_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-15"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-14_5"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-14_4"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-14_3"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-14_2"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-14_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-14"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-13_4"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-13_3"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-13_2"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-13_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-13"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-12_4"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-12_3"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-12_2"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-12_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-12"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-11_1"
+        },
+        {
+            "payload_demod": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/data_4166215_2021-05-27T09-18-11"
+        }
+    ],
+    "end": "2021-05-27T09:21:26Z",
+    "ground_station": 2029,
+    "id": 4166215,
+    "max_altitude": 16,
+    "norad_cat_id": 47445,
+    "payload": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/satnogs_4166215_2021-05-27T09-17-25.ogg",
+    "rise_azimuth": 284,
+    "set_azimuth": 227,
+    "start": "2021-05-27T09:17:25Z",
+    "station_alt": 280,
+    "station_lat": 53.91,
+    "station_lng": 27.09,
+    "station_name": "EU1AEM",
+    "status": "good",
+    "tle0": "0 OBJECT AJ",
+    "tle1": "1 47445U 21006AJ  21147.09969730  .00000831  00000-0  50779-4 0  9995",
+    "tle2": "2 47445  97.4857 208.6296 0012726 168.3712 191.7816 15.12938429 18821",
+    "transmitter": "3Sw2ibwCaQVE529QkboAqU",
+    "transmitter_baud": 9600,
+    "transmitter_description": "Mode U - 9k6 GMSK",
+    "transmitter_downlink_drift": null,
+    "transmitter_downlink_high": null,
+    "transmitter_downlink_low": 435600000,
+    "transmitter_invert": false,
+    "transmitter_mode": "GMSK",
+    "transmitter_type": "Transmitter",
+    "transmitter_updated": "2021-01-23T13:40:56.162886Z",
+    "transmitter_uplink_drift": null,
+    "transmitter_uplink_high": null,
+    "transmitter_uplink_low": null,
+    "transmitter_uuid": "3Sw2ibwCaQVE529QkboAqU",
+    "vetted_datetime": null,
+    "vetted_status": "good",
+    "vetted_user": null,
+    "waterfall": "https://network-satnogs.freetls.fastly.net/media/data_obs/4166215/waterfall_4166215_2021-05-27T09-17-25.png",
+    "waterfall_status": "unknown",
+    "waterfall_status_datetime": null,
+    "waterfall_status_user": null
+}
