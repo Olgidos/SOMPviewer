@@ -9,11 +9,11 @@
 #include <QDebug>
 
 
-class Dated_observation
+class DatedObservation
 {
 
 public:
-    Dated_observation(const QString &i_tle1, const QString &i_tle2, const QDateTime &i_start);
+    DatedObservation(const QString &i_tle1, const QString &i_tle2, const QDateTime &i_start);
 
     //to make it printable via qDebug()
     operator QString() const {
@@ -55,7 +55,7 @@ public:
 
 
 
-class DatedObservationList: public QList<Dated_observation>
+class DatedObservationList: public QList<DatedObservation>
 {
 
 public:

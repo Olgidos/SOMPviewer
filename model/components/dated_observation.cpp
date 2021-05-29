@@ -5,7 +5,7 @@
  * \param i_value
  * \param i_date
  */
-Dated_observation::Dated_observation(const QString &i_tle1, const QString &i_tle2, const QDateTime &i_start)
+DatedObservation::DatedObservation(const QString &i_tle1, const QString &i_tle2, const QDateTime &i_start)
     : start(i_start),
       tle1(i_tle1),
       tle2(i_tle2)
@@ -17,7 +17,7 @@ DatedObservationList::DatedObservationList() {
 }
 
 
-bool dateTimeComp(Dated_observation &left, Dated_observation &right)
+bool dateTimeComp(DatedObservation &left, DatedObservation &right)
 {
     return left.start < right.start;
 }

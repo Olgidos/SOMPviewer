@@ -95,7 +95,7 @@ bool Model::loadObservationData(const QString &i_path, const QString &i_tag,
         //Identify the date and time from the file name,
         QDateTime start = getDateTimeFromString2(obj["start"].toString());
 
-        observationList.push_back( Dated_observation(obj["tle1"].toString(), obj["tle2"].toString(), start) );
+        observationList.push_back( DatedObservation(obj["tle1"].toString(), obj["tle2"].toString(), start) );
 
         noradId = QString::number(obj["norad_cat_id"].toInt());
         observationList.last().end = getDateTimeFromString2(obj["end"].toString());
@@ -255,7 +255,7 @@ void Model::reloadMkspk()
     mkSetupFile(noradId.toInt(),-48,399);
 
     QList<QString> tles;
-    for(Dated_observation obs : observationList) {
+    for(DatedObservation obs : observationList) {
         tles.append(obs.tle1);
         tles.append(obs.tle2);
     }
