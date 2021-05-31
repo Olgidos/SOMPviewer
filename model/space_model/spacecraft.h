@@ -84,7 +84,7 @@ class Spacecraft
         SpiceDouble         position_obs[3];
         SpiceDouble         epoch;
         SpiceDouble         lt;
-        QQuaternion         oriantation;
+        QQuaternion         orientation;
 
         //oriantation ind deg, deg/s
         double quatW = 0;

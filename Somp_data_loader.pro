@@ -7,6 +7,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++17 console
 CONFIG += resources_big
 CONFIG += QT_NO_DEBUG_OUTPUT
+CONFIG += force_debug_info
 
 #CONFIG -= app_bundle
 #file:///C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/lib/x64/store/legacy_stdio_definitions.lib

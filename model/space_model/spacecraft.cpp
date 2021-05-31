@@ -67,19 +67,19 @@ void Spacecraft::calcSpacecraftDate(const QDateTime &i_datetime)
     spkezr_c ( sat_spice_id, etSpacecraft, "J2000", "NONE", "EARTH", stateSpacecraft,
                      &lt );
 
-    double yaw = (etSpacecraft-etInitial)*yawRate;
-    double pitch = (etSpacecraft-etInitial)*pitchRate;
-    double roll = (etSpacecraft-etInitial)*rollRate;
+    double dYaw   = (etSpacecraft - etInitial) * yawRate;
+    double dPitch = (etSpacecraft - etInitial) * pitchRate;
+    double dRoll  = (etSpacecraft - etInitial) * rollRate;
 
     //order of rotation
     //Yaw - x
     //Pitch - z
     //Roll - y
 
-    oriantation = QQuaternion(quatW,quatX,quatY,quatZ).normalized().inverted()
-                    * QQuaternion::fromEulerAngles(yaw,0,0).inverted()
-                    * QQuaternion::fromEulerAngles(0,0,pitch).inverted()
-                    * QQuaternion::fromEulerAngles(0,roll,0).inverted();
+    orientation = QQuaternion(quatW,quatX,quatY,quatZ).normalized()
+                    * QQuaternion::fromEulerAngles(dYaw, 0, 0)
+                    * QQuaternion::fromEulerAngles(0,0,dPitch)
+                    * QQuaternion::fromEulerAngles(0, dRoll,0);
 
     //qDebug() << state_spacecraft[0] << " " << state_spacecraft[1] << " " << state_spacecraft[2] << " " ;
 }
@@ -126,7 +126,7 @@ void Spacecraft::predictPasses()
     QDateTime max_elevation_date;
 
     while(et_start + time < et_end) {
-        spkcpo_c(sat_spice_id, et_start + time, "IAU_EARTH" , "OBSERVER" , "NONE", position_obs , "EARTH", "IAU_EARTH" , state , &lt);
+        spkcpo_c(sat_spice_id, et_start + time, "ITRF93" , "OBSERVER" , "NONE", position_obs , "EARTH", "ITRF93" , state , &lt);
 
         double dot = state[0]*position_obs[0] + state[1]*position_obs[1] + state[2]*position_obs[2];
         double square1 = state[0]*state[0] + state[1]*state[1] + state[2]*state[2];
@@ -142,7 +142,7 @@ void Spacecraft::predictPasses()
             illuminations.append(DatedValue(0,passesStart.addSecs(time),-1));
         }
 
-        //predict ECEF position for same dataset
+        //predict ECEF position for the same dataset
         QVector3D sc_ecef = predictPosition(passesStart.addSecs(time));
         positionEcefX.append(DatedValue(sc_ecef.x(), passesStart.addSecs(time), -1));
         positionEcefY.append(DatedValue(sc_ecef.y(), passesStart.addSecs(time), -1));
@@ -377,7 +377,7 @@ QVector3D Spacecraft::getVelocityEci()
  */
 QQuaternion Spacecraft::getOrientation()
 {
-    return oriantation;
+    return orientation;
 }
 
 /*!
