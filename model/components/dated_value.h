@@ -1,6 +1,7 @@
 #ifndef VALUE_H
 #define VALUE_H
 
+#include <QDebug>
 #include <QObject>
 #include <QDateTime>
 #include <float.h>
@@ -28,11 +29,14 @@ public:
     QString getName();
     QString getUnit();
     void sort();
+    int getIDforDate(const QDateTime i_date);
+
+    const DatedValue &at(int i);
 
 private:
     QString name;
     QString unit;
-
+    int lastCallItemID = 0;
 };
 
 

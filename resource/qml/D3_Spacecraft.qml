@@ -25,6 +25,11 @@ Entity {
 
     function calculatePosition(){
         var data = Controller.getSpacecraftData()
+
+        //console.log("x" + data[1])
+        //console.log("y" + data[2])
+        //console.log("z" + data[3])
+
         var x = data[1] / 1000;
         var y = data[2] / 1000;
         var z = data[3] / 1000;

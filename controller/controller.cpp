@@ -131,59 +131,109 @@ void Controller::run() {
             satnogsLoadData = false;
         }
 
-        if(updateSpacecraft) {
+        if(reinitSpacecraft) {
             QMutexLocker locker(&mutexVal);
             if(model.observationList.length() != 0) {
 
-                double quat_w = 0;
-                double quat_x = 0;
-                double quat_y = 0;
-                double quat_z = 0;
-                double yaw_rate = 0;
-                double pitch_rate = 0;
-                double roll_rate = 0;
+                double quatW = 1;
+                double quatX = 0;
+                double quatY = 0;
+                double quatZ = 0;
+                double angularRateX = 0;
+                double angularRateY = 0;
+                double angularRateZ = 0;
 
+                QDateTime date;
 
-                if(current_transmsission_id != -1)
                 for(DatedValueList *list : model.dataLists) {
                     if(list->getName() == "q_ib_w") {
-                        quat_w = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            quatW = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_w";
+                        }
                     }
                     if(list->getName() == "q_ib_i") {
-                        quat_x = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            quatX = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_i";
+                        }
                     }
                     if(list->getName() == "q_ib_j") {
-                        quat_y = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            quatY = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_j";
+                        }
                     }
                     if(list->getName() == "q_ib_k") {
-                        quat_z = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            quatZ = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_k";
+                        }
                     }
                     if(list->getName() == "angular_rate_x") {
-                        yaw_rate = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            angularRateX = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation rates provided for the spacecraft missing: angular_rate_x";
+                        }
                     }
                     if(list->getName() == "angular_rate_y") {
-                        pitch_rate = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            angularRateY = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation rates provided for the spacecraft missing: angular_rate_y";
+                        }
                     }
                     if(list->getName() == "angular_rate_z") {
-                        roll_rate = list->at(current_transmsission_id).value;
+                        if(!list->empty()){
+                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            angularRateZ = val->value;
+                            date = val->date;
+                        }
+                        else {
+                            qWarning() << "No rotation rates provided for the spacecraft missing: angular_rate_z";
+                        }
                     }
                 }
 
 
-                model.spacecraft.reinit(playblack_date, quat_w,
-                                        quat_x, quat_y, quat_z,
-                                        yaw_rate, pitch_rate,
-                                        roll_rate);
+                model.spacecraft.reinit(date, quatW,
+                                        quatX, quatY, quatZ,
+                                        angularRateX, angularRateY,
+                                        angularRateZ);
+                model.spacecraft.calcSpacecraftDate(playblack_date);
                 orbitMarkerX.clear();
                 orbitMarkerY.clear();
                 orbitMarkerZ.clear();
 
 
-                updateSpacecraft = false;
+                reinitSpacecraft = false;
                 calculateOrbitMarker = true;
                 emit spacecraftUpdated();
             } else {
-                updateSpacecraft = false;
+                reinitSpacecraft = false;
                 emit spacecraftUpdated();
             }
 
@@ -225,6 +275,8 @@ void Controller::run() {
                             current_observation_id = model.observationList
                                     .getObsIndex(model.dataLists.at(0)
                                     ->at(current_transmsission_id).observationIndex);
+
+                            reinitSpacecraft = true;
                             emit transmissionUpdated();
                             emit observationUpdated();
                         }
@@ -237,22 +289,26 @@ void Controller::run() {
                             current_observation_id = model.observationList
                                     .getObsIndex(model.dataLists.at(0)
                                     ->at(current_transmsission_id).observationIndex);
+
+                            reinitSpacecraft = true;
                             emit transmissionUpdated();
                             emit observationUpdated();
                         }
                     }
                 }
 
-                model.spacecraft.calcSpacecraftDate(playblack_date);
+                if(!reinitSpacecraft) {
+                    model.spacecraft.calcSpacecraftDate(playblack_date);
 
-                orbitMarkerX.clear();
-                orbitMarkerY.clear();
-                orbitMarkerZ.clear();
+                    orbitMarkerX.clear();
+                    orbitMarkerY.clear();
+                    orbitMarkerZ.clear();
 
-                calculateOrbitMarker = true;
+                    calculateOrbitMarker = true;
 
-                emit dateUpdated();
-                emit spacecraftUpdated();
+                    emit dateUpdated();
+                    emit spacecraftUpdated();
+                }
 
             }
             last_millis = QDateTime::currentMSecsSinceEpoch();
@@ -280,7 +336,7 @@ void Controller::run() {
  */
 void Controller::handleModelImportFinished()
 {
-    updateSpacecraft = true;
+    reinitSpacecraft = true;
 
     playblack_date = QDateTime( QDate(2021, 1, 1), QTime(0, 0, 0), QTimeZone::utc() );
     current_transmsission_id = -1;
@@ -780,7 +836,7 @@ void Controller::changeTransmission(const bool &i_changeDate) {
 
     if(i_changeDate) playblack_date = model.dataLists.at(0)
             ->at(current_transmsission_id).date;
-    updateSpacecraft = true;
+    reinitSpacecraft = true;
     emit transmissionUpdated();
     emit dateUpdated();
 }
@@ -824,7 +880,7 @@ void Controller::set_date(const int &i_day,
 
     //In case there is no transmission data loaded
     if(model.dataLists.size() == 0 ) {
-        updateSpacecraft = true;
+        reinitSpacecraft = true;
         emit dateUpdated();
         return;
     }
@@ -854,7 +910,7 @@ void Controller::reset_date()
     if(model.dataLists.size() == 0) {
         playblack_date = model.observationList.at(0).start;
         emit dateUpdated();
-        updateSpacecraft = true;
+        reinitSpacecraft = true;
         return;
     }
     changeTransmission();

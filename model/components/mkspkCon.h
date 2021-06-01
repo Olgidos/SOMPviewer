@@ -5,6 +5,8 @@
 #include <QtCore>
 #include "resource/cspice/include/SpiceUsr.h"
 
+#define BINARY_FILE "/hst.bsp"
+#define INPUT_TLE_FILE "/hst.tle"
 #define SETUP_NAME "/setup.tle"
 #define IO_NAME "hst"
 #define std_path "kernels"
@@ -15,6 +17,12 @@
  * \param path for the file output
  */
 static void mkSetupFile(int norad_id, int spk_obj_id, int center_id, QString path = std_path) {
+    QFile file_binary(path + BINARY_FILE);
+    file_binary.remove();
+
+    QFile file_tle(path + INPUT_TLE_FILE);
+    file_tle.remove();
+
     QFile file(path + SETUP_NAME);
     file.remove();
 

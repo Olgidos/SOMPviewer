@@ -92,9 +92,9 @@ class Spacecraft
         double quatY = 0;
         double quatZ = 0;
 
-        double yawRate = 0;
-        double pitchRate = 0;
-        double rollRate = 0;
+        double angularRateX = 0;
+        double angularRateY = 0;
+        double angularRateZ = 0;
 
 
         void getJ2000seconds(const QDateTime &i_date, SpiceDouble &i_et);

@@ -51,3 +51,48 @@ void DatedValueList::sort()
 {
     std::sort(begin(), end(), dateTimeComp);
 }
+
+/*!
+ * \brief DatedValueList::getIDforDate returns id of the item which directly below the input date
+ * \param i_date
+ */
+int DatedValueList::getIDforDate(const QDateTime i_date)
+{
+
+    if(empty()) return -1;
+
+    if (QList::at(lastCallItemID).date <= i_date) {
+
+        if(lastCallItemID +1 >= size() ) {
+            return lastCallItemID;
+        }
+
+        for(int i = lastCallItemID + 1; i < size(); i++) {
+            if (QList::at(i).date > i_date) {
+                return i-1;
+            }
+        }
+        return size()-1;
+    }
+
+
+    //if(lastCallItemID + 1 >= size()) return 0;
+
+    if (QList::at(lastCallItemID).date > i_date) {
+        for(int i = lastCallItemID; i >= 0; i--) {
+            if (QList::at(i).date <= i_date) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    return -1;
+}
+
+const DatedValue &DatedValueList::at(int i)
+{
+    lastCallItemID = i;
+    return QList::at(i);
+}
+

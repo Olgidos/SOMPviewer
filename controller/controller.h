@@ -100,7 +100,7 @@ private:
     //std::atomic<bool> are used becouse they provide defined behavior when two threads are accessing them at the same time
     std::atomic<bool> satnogsDataChanged = false;
     std::atomic<bool> satnogsLoadData = false;
-    std::atomic<bool> updateSpacecraft = false;
+    std::atomic<bool> reinitSpacecraft = false;
     std::atomic<bool> calcPasses = false;
     std::atomic<bool> calculateOrbitMarker = false;
     std::atomic<int> orbitMarkerMax = 88; //120

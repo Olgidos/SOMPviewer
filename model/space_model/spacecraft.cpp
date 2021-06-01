@@ -67,9 +67,9 @@ void Spacecraft::calcSpacecraftDate(const QDateTime &i_datetime)
     spkezr_c ( sat_spice_id, etSpacecraft, "J2000", "NONE", "EARTH", stateSpacecraft,
                      &lt );
 
-    double dYaw   = (etSpacecraft - etInitial) * yawRate;
-    double dPitch = (etSpacecraft - etInitial) * pitchRate;
-    double dRoll  = (etSpacecraft - etInitial) * rollRate;
+    double dAngularRateX = (etSpacecraft - etInitial) * angularRateX;
+    double dAngularRateY = (etSpacecraft - etInitial) * angularRateY;
+    double dAngularRateZ = (etSpacecraft - etInitial) * angularRateZ;
 
     //order of rotation
     //Yaw - x
@@ -77,9 +77,9 @@ void Spacecraft::calcSpacecraftDate(const QDateTime &i_datetime)
     //Roll - y
 
     orientation = QQuaternion(quatW,quatX,quatY,quatZ).normalized()
-                    * QQuaternion::fromEulerAngles(dYaw, 0, 0)
-                    * QQuaternion::fromEulerAngles(0,0,dPitch)
-                    * QQuaternion::fromEulerAngles(0, dRoll,0);
+                    * QQuaternion::fromEulerAngles(dAngularRateX, 0, 0)
+                    * QQuaternion::fromEulerAngles(0,dAngularRateY, 0)
+                    * QQuaternion::fromEulerAngles(0, 0,dAngularRateZ);
 
     //qDebug() << state_spacecraft[0] << " " << state_spacecraft[1] << " " << state_spacecraft[2] << " " ;
 }
@@ -426,12 +426,11 @@ void Spacecraft::reinit(QDateTime i_datetime, double i_quat_w, double i_quat_x,
     quatX = i_quat_x;
     quatY = i_quat_y;
     quatZ = i_quat_z;
-    yawRate = i_yaw_rate;
-    pitchRate = i_pitch_rate;
-    rollRate = i_roll_rate;
+    angularRateX = i_yaw_rate;
+    angularRateY = i_pitch_rate;
+    angularRateZ = i_roll_rate;
 
     getJ2000seconds(i_datetime, etInitial);
-    calcSpacecraftDate(i_datetime);
 }
 
 
