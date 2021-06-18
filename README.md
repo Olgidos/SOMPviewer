@@ -5,27 +5,28 @@ Developed for the TU Dresden Nanosat SOMP2b Norad ID: 47445
 ![plot](./image1.png)
 
 Features:
- - Receive transmission data from the SatNOGS network (Rest API), decode and represent it
+ - Receive transmission data from the SatNOGS network (Rest API), decode and represent
  - Satellite orbit visualization of position and attitude
  - Predict passes and satellite eclipse times
  - Model backend based on NAIF CSPICE
  - The Software can easily be used for different satellites. Therefore a custom transmission decoding script is required similar to "./python/decode.py". It decodes the binary data into .json files. The name convention must be kept similar.
  - All downloaded RAW and Metadata as well as the decoded .json files are saved under "./download". 
     - To use the attitude visualization the data must contain:
-    - "Roll angle [deg]"
-    - "Pitch angle [deg]"
-    - "Yaw angle [deg]"
-    - "X angluar rate [deg/s]"
-    - "Y angluar rate [deg/s]"
-    - "Z angluar rate [deg/s]"
+    - "q_ib_w [deg]" (Quaternion scalar ECI to Satellite Frame)
+    - "q_ib_i [deg]" (Quaternion X ECI to Satellite Frame)
+    - "q_ib_j [deg]" (Quaternion Y ECI to Satellite Frame)
+    - "q_ib_k [deg]" (Quaternion Z ECI to Satellite Frame)
+    - "angular_rate_x [deg/s]"
+    - "angular_rate_y [deg/s]"
+    - "angular_rate_z [deg/s]"
 
 ![plot](./image2.png)
 ![plot](./image3.png)
 
 Build:
 MSVC2019 64 bit
-Recommended build pass: "./build/MSVC"
-Build requirements (all provided in the recommended build pass):
+Recommended build folder: "./build/"
+Build requirements (all already provided in the recommended build folder):
  - Installed python
  - OpenSSL extensions
     - "./libcrypto-1_1-x64.dll"
