@@ -58,19 +58,37 @@ QVector3D Spacecraft::predictPosition(const QDateTime &i_datetime)
  */
 QQuaternion Spacecraft::predictOrientation(const QDateTime &i_date)
 {
-    double dAngularRateX = (etSpacecraft - etInitial) * angularRateX;
-    double dAngularRateY = (etSpacecraft - etInitial) * angularRateY;
-    double dAngularRateZ = (etSpacecraft - etInitial) * angularRateZ;
 
+    double dAngularRateX = 0;
+    double dAngularRateY = 0;
+    double dAngularRateZ = 0;
+
+    if(!angularRateX->empty() || !angularRateX->empty() || !angularRateX->empty() ) {
+        double etInitial;
+        double etSpacecraft;
+
+        getJ2000seconds(quatW->getTransmissionDateForDate(i_date), etInitial);
+        getJ2000seconds(i_date, etSpacecraft);
+
+        dAngularRateX = (etSpacecraft - etInitial) * angularRateX->getValueForDate(i_date);
+        dAngularRateY = (etSpacecraft - etInitial) * angularRateY->getValueForDate(i_date);
+        dAngularRateZ = (etSpacecraft - etInitial) * angularRateZ->getValueForDate(i_date);
+    }
     //order of rotation
     //Yaw - x
     //Pitch - z
     //Roll - y
 
-    return QQuaternion(quatW,quatX,quatY,quatZ).normalized()
-            * QQuaternion::fromEulerAngles(dAngularRateX, 0, 0)
-            * QQuaternion::fromEulerAngles(0,dAngularRateY, 0)
-            * QQuaternion::fromEulerAngles(0, 0,dAngularRateZ);
+    if(!quatW->empty() || !quatX->empty() || !quatY->empty() || !quatZ->empty()) {
+        return QQuaternion(quatW->getValueForDate(i_date),
+                           quatX->getValueForDate(i_date),
+                           quatY->getValueForDate(i_date),
+                           quatZ->getValueForDate(i_date)).normalized()
+                * QQuaternion::fromEulerAngles(dAngularRateX, 0, 0)
+                * QQuaternion::fromEulerAngles(0,dAngularRateY, 0)
+                * QQuaternion::fromEulerAngles(0, 0,dAngularRateZ);
+    }
+    return QQuaternion(1,0,0,0);
 }
 
 /*!
@@ -122,6 +140,10 @@ void Spacecraft::predictPasses()
     positionEcefY.clear();
     positionEcefZ.clear();
     maxElevations.clear();
+    predictionQuatW.clear();
+    predictionQuatX.clear();
+    predictionQuatY.clear();
+    predictionQuatZ.clear();
 
     progressBar.setMessage("predict passes");
 
@@ -161,6 +183,14 @@ void Spacecraft::predictPasses()
         double angle = 90 - acos(dot/sqrt(square1 * square2)) / M_PI * 180.0 ;
 
         elevations.append(DatedValue(angle,passesStart.addSecs(time),-1));
+
+        //predict orientation for same dataset
+        QQuaternion quat = predictOrientation(passesStart.addSecs(time));
+        predictionQuatW.append(DatedValue(quat.scalar(), passesStart.addSecs(time), -1));
+        predictionQuatX.append(DatedValue(quat.scalar(), passesStart.addSecs(time), -1));
+        predictionQuatY.append(DatedValue(quat.scalar(), passesStart.addSecs(time), -1));
+        predictionQuatZ.append(DatedValue(quat.scalar(), passesStart.addSecs(time), -1));
+
 
         //predict illumination for same dataset
         if(predictIlluminated(passesStart.addSecs(time))) {
@@ -265,12 +295,20 @@ void Spacecraft::writeCsvRaw() {
     names.append(positionEcefZ.getName() + "_" + positionEcefZ.getUnit());
     names.append(elevations.getName() + "_" + elevations.getUnit());
     names.append(illuminations.getName() + "_" + illuminations.getUnit());
+    names.append(predictionQuatW.getName() + "_" + predictionQuatW.getUnit());
+    names.append(predictionQuatX.getName() + "_" + predictionQuatX.getUnit());
+    names.append(predictionQuatY.getName() + "_" + predictionQuatY.getUnit());
+    names.append(predictionQuatZ.getName() + "_" + predictionQuatZ.getUnit());
 
     dataLists.append(&positionEcefX);
     dataLists.append(&positionEcefY);
     dataLists.append(&positionEcefZ);
     dataLists.append(&elevations);
     dataLists.append(&illuminations);
+    dataLists.append(&predictionQuatW);
+    dataLists.append(&predictionQuatX);
+    dataLists.append(&predictionQuatY);
+    dataLists.append(&predictionQuatZ);
 
 
     QFile file(CSV_PATH_RAW);
@@ -449,33 +487,6 @@ void Spacecraft::getJ2000seconds(const QDateTime &i_date, SpiceDouble &i_et)
 
     str2et_c(time, &i_et);
 }
-
-/*!
- * \brief Spacecraft::reinit reinits the state of the spacecraft to new date.
- * Is used when the active transmission is changed.
- * \param i_datetime
- * \param i_yaw in deg
- * \param i_pitch in deg
- * \param i_roll in deg
- * \param i_yaw_rate in deg/s
- * \param i_pitch_rate in deg/s
- * \param i_roll_rate in deg/s
- */
-void Spacecraft::reinit(QDateTime i_datetime, double i_quat_w, double i_quat_x,
-                        double i_quat_y , double i_quat_z,
-                        double i_yaw_rate, double i_pitch_rate, double i_roll_rate)
-{
-    quatW = i_quat_w;
-    quatX = i_quat_x;
-    quatY = i_quat_y;
-    quatZ = i_quat_z;
-    angularRateX = i_yaw_rate;
-    angularRateY = i_pitch_rate;
-    angularRateZ = i_roll_rate;
-
-    getJ2000seconds(i_datetime, etInitial);
-}
-
 
 
 

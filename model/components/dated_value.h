@@ -31,6 +31,7 @@ public:
     void sort();
     int getIDForDate(const QDateTime &i_date);
     double getValueForDate(const QDateTime &i_date);
+    QDateTime getTransmissionDateForDate(const QDateTime &i_date);
 
     const DatedValue &at(int i);
 

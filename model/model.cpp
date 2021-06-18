@@ -9,6 +9,36 @@ Model::Model() :
     QObject::connect(&importer, SIGNAL(importFinished()), this, SLOT(startLoadingData()));
     QObject::connect(&importer, SIGNAL(importFailed()), this, SIGNAL(noDataLoaded()));
     furnsh_c (META_KERNAL);
+
+
+    //Adding necessary orientation data list
+    DatedValueList *list = new DatedValueList("q_ib_w","");
+    spacecraft.quatW = list;
+    dataLists.push_back(list);
+
+    list = new DatedValueList("q_ib_i","");
+    spacecraft.quatX = list;
+    dataLists.push_back(list);
+
+    list = new DatedValueList("q_ib_j","");
+    spacecraft.quatY = list;
+    dataLists.push_back(list);
+
+    list = new DatedValueList("q_ib_k","");
+    spacecraft.quatZ = list;
+    dataLists.push_back(list);
+
+    list = new DatedValueList("angular_rate_x","m/s");
+    spacecraft.angularRateX = list;
+    dataLists.push_back(list);
+
+    list = new DatedValueList("angular_rate_y","m/s");
+    spacecraft.angularRateY = list;
+    dataLists.push_back(list);
+
+    list = new DatedValueList("angular_rate_z","m/s");
+    spacecraft.angularRateZ = list;
+    dataLists.push_back(list);
 }
 
 

@@ -57,6 +57,11 @@ double DatedValueList::getValueForDate(const QDateTime &i_date)
     return at(getIDForDate(i_date)).value;
 }
 
+QDateTime DatedValueList::getTransmissionDateForDate(const QDateTime &i_date)
+{
+    return at(getIDForDate(i_date)).date;
+}
+
 /*!
  * \brief DatedValueList::getIDforDate returns id of the item which directly below the input date
  * \param i_date

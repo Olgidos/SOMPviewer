@@ -135,99 +135,10 @@ void Controller::run() {
             QMutexLocker locker(&mutexVal);
             if(model.observationList.length() != 0) {
 
-                double quatW = 1;
-                double quatX = 0;
-                double quatY = 0;
-                double quatZ = 0;
-                double angularRateX = 0;
-                double angularRateY = 0;
-                double angularRateZ = 0;
-
-                QDateTime date;
-
-                for(DatedValueList *list : model.dataLists) {
-                    if(list->getName() == "q_ib_w") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            quatW = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_w";
-                        }
-                    }
-                    if(list->getName() == "q_ib_i") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            quatX = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_i";
-                        }
-                    }
-                    if(list->getName() == "q_ib_j") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            quatY = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_j";
-                        }
-                    }
-                    if(list->getName() == "q_ib_k") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            quatZ = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation quaternion provided for the spacecraft missing: q_ib_k";
-                        }
-                    }
-                    if(list->getName() == "angular_rate_x") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            angularRateX = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation rates provided for the spacecraft missing: angular_rate_x";
-                        }
-                    }
-                    if(list->getName() == "angular_rate_y") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            angularRateY = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation rates provided for the spacecraft missing: angular_rate_y";
-                        }
-                    }
-                    if(list->getName() == "angular_rate_z") {
-                        if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
-                            angularRateZ = val->value;
-                            date = val->date;
-                        }
-                        else {
-                            qWarning() << "No rotation rates provided for the spacecraft missing: angular_rate_z";
-                        }
-                    }
-                }
-
-
-                model.spacecraft.reinit(date, quatW,
-                                        quatX, quatY, quatZ,
-                                        angularRateX, angularRateY,
-                                        angularRateZ);
                 model.spacecraft.calcSpacecraftDate(playblack_date);
                 orbitMarkerX.clear();
                 orbitMarkerY.clear();
                 orbitMarkerZ.clear();
-
 
                 reinitSpacecraft = false;
                 calculateOrbitMarker = true;
