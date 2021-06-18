@@ -148,7 +148,7 @@ void Controller::run() {
                 for(DatedValueList *list : model.dataLists) {
                     if(list->getName() == "q_ib_w") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             quatW = val->value;
                             date = val->date;
                         }
@@ -158,7 +158,7 @@ void Controller::run() {
                     }
                     if(list->getName() == "q_ib_i") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             quatX = val->value;
                             date = val->date;
                         }
@@ -168,7 +168,7 @@ void Controller::run() {
                     }
                     if(list->getName() == "q_ib_j") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             quatY = val->value;
                             date = val->date;
                         }
@@ -178,7 +178,7 @@ void Controller::run() {
                     }
                     if(list->getName() == "q_ib_k") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             quatZ = val->value;
                             date = val->date;
                         }
@@ -188,7 +188,7 @@ void Controller::run() {
                     }
                     if(list->getName() == "angular_rate_x") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             angularRateX = val->value;
                             date = val->date;
                         }
@@ -198,7 +198,7 @@ void Controller::run() {
                     }
                     if(list->getName() == "angular_rate_y") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             angularRateY = val->value;
                             date = val->date;
                         }
@@ -208,7 +208,7 @@ void Controller::run() {
                     }
                     if(list->getName() == "angular_rate_z") {
                         if(!list->empty()){
-                            const DatedValue *val = &list->at(list->getIDforDate(playblack_date));
+                            const DatedValue *val = &list->at(list->getIDForDate(playblack_date));
                             angularRateZ = val->value;
                             date = val->date;
                         }
@@ -748,6 +748,8 @@ QVariantList Controller::getPlaybackDate()
     gui_buffer.append( playblack_date.time().minute() );
     //5
     gui_buffer.append( playblack_date.time().hour() );
+    //6
+    gui_buffer.append( model.spacecraft.etSpacecraftJulian);
 
     return gui_buffer;
 }

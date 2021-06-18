@@ -15,6 +15,7 @@ Rectangle {
     width: 275
     height: 60
 
+
     Rectangle {
         id: rect_date
         width: parent.width
@@ -23,6 +24,7 @@ Rectangle {
         anchors.right: parent.right
         height: date_height
         color: "transparent"
+
 
         TextField {
             id: day
@@ -389,6 +391,9 @@ Rectangle {
             seconds.text = data[3]
             minutes.text = data[4]
             hours.text = data[5]
+
+            console.log(data[6] + "   " + data[2] + "-" + data[1] + "-"
+                        + data[0] + " " + data[5] + ":" + data[4] + ":" + data[3] + " UTC")
         }
     }
 

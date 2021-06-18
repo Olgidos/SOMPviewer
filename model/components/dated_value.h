@@ -29,7 +29,8 @@ public:
     QString getName();
     QString getUnit();
     void sort();
-    int getIDforDate(const QDateTime i_date);
+    int getIDForDate(const QDateTime &i_date);
+    double getValueForDate(const QDateTime &i_date);
 
     const DatedValue &at(int i);
 

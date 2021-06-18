@@ -52,11 +52,16 @@ void DatedValueList::sort()
     std::sort(begin(), end(), dateTimeComp);
 }
 
+double DatedValueList::getValueForDate(const QDateTime &i_date)
+{
+    return at(getIDForDate(i_date)).value;
+}
+
 /*!
  * \brief DatedValueList::getIDforDate returns id of the item which directly below the input date
  * \param i_date
  */
-int DatedValueList::getIDforDate(const QDateTime i_date)
+int DatedValueList::getIDForDate(const QDateTime &i_date)
 {
 
     if(empty()) return -1;
