@@ -28,15 +28,15 @@ Model::Model() :
     spacecraft.quatZ = list;
     dataLists.push_back(list);
 
-    list = new DatedValueList("angular_rate_x","m/s");
+    list = new DatedValueList("angular_rate_x","deg/s");
     spacecraft.angularRateX = list;
     dataLists.push_back(list);
 
-    list = new DatedValueList("angular_rate_y","m/s");
+    list = new DatedValueList("angular_rate_y","deg/s");
     spacecraft.angularRateY = list;
     dataLists.push_back(list);
 
-    list = new DatedValueList("angular_rate_z","m/s");
+    list = new DatedValueList("angular_rate_z","deg/s");
     spacecraft.angularRateZ = list;
     dataLists.push_back(list);
 }
